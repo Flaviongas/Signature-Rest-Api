@@ -1,0 +1,300 @@
+[
+  {
+    "ID": 1,
+    "Rut": 21075353,
+    "Nombre1": "FLAVIO",
+    "Nombre2": "ALEXANDER",
+    "Apellido1": "JARA",
+    "Apellido2": "LABRIN",
+    "DV": "2",
+    "Carrera": "INGENIERÍA CIVIL INFORMÁTICA"
+  },
+  {
+    "ID": 2,
+    "Rut": 22605059,
+    "Nombre1": "VICTOR",
+    "Nombre2": "ALEJANDRO",
+    "Apellido1": "ROCHA",
+    "Apellido2": "DURÁN",
+    "DV": "0",
+    "Carrera": "INGENIERÍA CIVIL INFORMÁTICA",
+    "Asignatura": "Física Mecánica"
+  },
+  {
+    "ID": 3,
+    "Rut": 21065358,
+    "Nombre1": "RAYEN",
+    "Nombre2": "MARCELA",
+    "Apellido1": "DELGADO",
+    "Apellido2": "ARÓSTICA",
+    "DV": "9",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL",
+    "Asignatura": "Física Mecánica"
+  },
+  {
+    "ID": 4,
+    "Rut": 20357099,
+    "Nombre1": "MATIAS",
+    "Nombre2": "IGNACIO",
+    "Apellido1": "CEBALLOS",
+    "Apellido2": "VASQUEZ",
+    "DV": "6",
+    "Carrera": "INGENIERÍA CIVIL INFORMÁTICA",
+    "Asignatura": "Física Mecánica"
+  },
+  {
+    "ID": 5,
+    "Rut": 21240437,
+    "Nombre1": "RICARDO",
+    "Nombre2": "JAVIER",
+    "Apellido1": "LOPEZ",
+    "Apellido2": "DIAZ",
+    "DV": "3",
+    "Carrera": "INGENIERÍA CIVIL INFORMÁTICA"
+  },
+  {
+    "ID": 13,
+    "Rut": 20391519,
+    "Nombre1": "ANIBAL",
+    "Nombre2": "GONZALO",
+    "Apellido1": "GOMEZ",
+    "Apellido2": "FLORES",
+    "DV": "5",
+    "Carrera": "INGENIERÍA CIVIL INFORMÁTICA",
+    "Asignatura": "Física Mecánica"
+  },
+  {
+    "ID": 14,
+    "Rut": 21528620,
+    "Nombre1": "NICOLAS",
+    "Nombre2": "ALONSO",
+    "Apellido1": "MELLA",
+    "Apellido2": "ORTIZ",
+    "DV": "7",
+    "Carrera": "INGENIERÍA CIVIL INFORMÁTICA",
+    "Asignatura": "Electricidad y Electromagnetismo"
+  },
+  {
+    "ID": 17,
+    "Rut": 21175741,
+    "Nombre1": "ALIAN",
+    "Nombre2": "AYAN",
+    "Apellido1": "NECULMAN",
+    "Apellido2": "FLORES",
+    "DV": "8",
+    "Carrera": "INGENIERÍA CIVIL INFORMÁTICA",
+    "Asignatura": "Electricidad y Electromagnetismo"
+  },
+  {
+    "ID": 18,
+    "Rut": 21482750,
+    "Nombre1": "JOAQUIN",
+    "Nombre2": "ALEJANDRO",
+    "Apellido1": "ROJAS",
+    "Apellido2": "IBARRA",
+    "DV": "6",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 19,
+    "Rut": 21223313,
+    "Nombre1": "MATHIAS",
+    "Nombre2": "EDUARDO",
+    "Apellido1": "DEUMACÁN",
+    "Apellido2": "PULGAR",
+    "DV": "8",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 20,
+    "Rut": 19478895,
+    "Nombre1": "JAVIER",
+    "Nombre2": "ALEJANDRO",
+    "Apellido1": "SANHUEZA",
+    "Apellido2": "HIDALGO",
+    "DV": "9",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 21,
+    "Rut": 21333275,
+    "Nombre1": "GIANFRANCO",
+    "Nombre2": "",
+    "Apellido1": "BANO",
+    "Apellido2": "HONORATO",
+    "DV": "9",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 22,
+    "Rut": 20977219,
+    "Nombre1": "LUCIANO",
+    "Nombre2": "IGNACIO",
+    "Apellido1": "REYES",
+    "Apellido2": "QUIJADA",
+    "DV": "1",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 23,
+    "Rut": 20645404,
+    "Nombre1": "HÉCTOR",
+    "Nombre2": "ARIEL",
+    "Apellido1": "VILLAGRA",
+    "Apellido2": "REYES",
+    "DV": "0",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 24,
+    "Rut": 21418813,
+    "Nombre1": "NICOLAS",
+    "Nombre2": "EDGARDO",
+    "Apellido1": "ALARCÓN",
+    "Apellido2": "ALCAVIL",
+    "DV": "9",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 25,
+    "Rut": 21588766,
+    "Nombre1": "VALENTINA",
+    "Nombre2": "ARACELLI",
+    "Apellido1": "VÁSQUEZ",
+    "Apellido2": "REBOLLEDO",
+    "DV": "9",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 26,
+    "Rut": 20611082,
+    "Nombre1": "CAMILA",
+    "Nombre2": "YESENIA",
+    "Apellido1": "CONEJEROS",
+    "Apellido2": "DÍAZ",
+    "DV": "1",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 27,
+    "Rut": 20645400,
+    "Nombre1": "HELEN",
+    "Nombre2": "YASIRA",
+    "Apellido1": "PAILLALEF",
+    "Apellido2": "MONCADA",
+    "DV": "8",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 28,
+    "Rut": 21494146,
+    "Nombre1": "MAXIMILIANO",
+    "Nombre2": "JOAQUIN",
+    "Apellido1": "ALMONACID",
+    "Apellido2": "PÉREZ",
+    "DV": "5",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 29,
+    "Rut": 21351670,
+    "Nombre1": "JUAN",
+    "Nombre2": "MANUEL",
+    "Apellido1": "ANDRADE",
+    "Apellido2": "PÉREZ",
+    "DV": "1",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 30,
+    "Rut": 21413722,
+    "Nombre1": "KEVIN",
+    "Nombre2": "BASTIAN",
+    "Apellido1": "OSORIO",
+    "Apellido2": "RÜTH",
+    "DV": "4",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 31,
+    "Rut": 21331724,
+    "Nombre1": "JOAQUIN",
+    "Nombre2": "ALONZO",
+    "Apellido1": "LLANCALEO",
+    "Apellido2": "MILLAR",
+    "DV": "5",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 32,
+    "Rut": 19901145,
+    "Nombre1": "FELIPE",
+    "Nombre2": "IGNACIO",
+    "Apellido1": "MERINO",
+    "Apellido2": "MUÑOZ",
+    "DV": "6",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 33,
+    "Rut": 20905674,
+    "Nombre1": "GABRIEL",
+    "Nombre2": "FRANCISCO",
+    "Apellido1": "SÁNCHEZ",
+    "Apellido2": "MONSÁLVEZ",
+    "DV": "7",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 34,
+    "Rut": 21445467,
+    "Nombre1": "FRANCISCO",
+    "Nombre2": "ALEJANDRO",
+    "Apellido1": "RUIZ",
+    "Apellido2": "VARELA",
+    "DV": "K",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 35,
+    "Rut": 21075449,
+    "Nombre1": "CAMILA GRACIELA",
+    "Nombre2": "ANDREA",
+    "Apellido1": "GALLARDO",
+    "Apellido2": "OJEDA",
+    "DV": "0",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 36,
+    "Rut": 21203305,
+    "Nombre1": "SOFIA",
+    "Nombre2": "VALENTINA",
+    "Apellido1": "HENRÍQUEZ",
+    "Apellido2": "FIGUEROA",
+    "DV": "7",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "ID": 37,
+    "Rut": 20583583,
+    "Nombre1": "DANIELA",
+    "Nombre2": "ELIZABETH",
+    "Apellido1": "CASTRO",
+    "Apellido2": "HUILLIPÁN",
+    "DV": "0",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL",
+    "Asignatura": "Electricidad y Electromagnetismo"
+  },
+  {
+    "ID": 38,
+    "Rut": 20687193,
+    "Nombre1": "JAVIERA",
+    "Nombre2": "CONSTANZA",
+    "Apellido1": "MUÑOZ",
+    "Apellido2": "CÓRDOVA",
+    "DV": "8",
+    "Carrera": "INGENIERÍA CIVIL INDUSTRIAL",
+    "Asignatura": "Electricidad y Electromagnetismo"
+  }
+]

@@ -3,9 +3,22 @@ from django.db import models
 # Create your models here.
 
 
+class Student(models.Model):
+    rut = models.CharField(max_length=20)
+    dv = models.CharField(max_length=1)
+    first_name = models.CharField(max_length=200)
+    second_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    second_last_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
 class Major(models.Model):
     name = models.CharField(max_length=200)
     faculty = models.CharField(max_length=200)
+    students = models.ManyToManyField(Student, related_name='majors')
 
     def __str__(self):
         return self.name
@@ -14,16 +27,7 @@ class Major(models.Model):
 class Subject(models.Model):
     name = models.CharField(max_length=200)
     major = models.ManyToManyField(Major, related_name='subjects')
+    students = models.ManyToManyField(Student, related_name='subjects')
 
     def __str__(self):
         return self.name
-
-# class Student(models.Model):
-#     name = models.CharField(max_length=200)
-#     email = models.EmailField()
-#     document = models.CharField(max_length=20)
-#     phone = models.CharField(max_length=20)
-#     registration = models.DateTimeField(auto_now_add=True)
-#
-#     def __str__(self):
-#         return self.name
