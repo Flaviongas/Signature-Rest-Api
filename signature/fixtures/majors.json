@@ -1,0 +1,106 @@
+[
+  {
+    "faculty": "Fac. Arquitec. y Construcción",
+    "name": "ARQUITECTURA"
+  },
+  {
+    "faculty": "Fac. Administración y Negocios",
+    "name": "AUD. E ING EN CONTROL DE GEST."
+  },
+  {
+    "faculty": "Fac. Derecho",
+    "name": "DERECHO"
+  },
+  {
+    "faculty": "Fac. Cs de la Salud",
+    "name": "ENFERMERÍA"
+  },
+  {
+    "faculty": "Fac. Cs de la Salud",
+    "name": "FONOAUDIOLOGÍA"
+  },
+  {
+    "faculty": "Fac. Administración y Negocios",
+    "name": "ING. EN CONTROL DE GESTIÓN"
+  },
+  {
+    "faculty": "Fac. Ingeniería",
+    "name": "INGENIERÍA CIVIL INDUSTRIAL"
+  },
+  {
+    "faculty": "Fac. Ingeniería",
+    "name": "INGENIERÍA CIVIL INFORMÁTICA"
+  },
+  {
+    "faculty": "Fac. Administración y Negocios",
+    "name": "INGENIERÍA COMERCIAL"
+  },
+  {
+    "faculty": "Fac. Administración y Negocios",
+    "name": "INGENIERÍA EN ADMINISTRACIÓN"
+  },
+  {
+    "faculty": "Fac. Arquitec. y Construcción",
+    "name": "INGENIERÍA EN CONSTRUCCIÓN"
+  },
+  {
+    "faculty": "Fac. Cs de la Salud",
+    "name": "KINESIOLOGÍA"
+  },
+  {
+    "faculty": "Fac. Cs de la Salud",
+    "name": "NUTRICIÓN Y DIETÉTICA"
+  },
+  {
+    "faculty": "Fac. Cs de la Salud",
+    "name": "ODONTOLOGÍA"
+  },
+  {
+    "faculty": "Fac. Educación",
+    "name": "PED. EN EDUCACIÓN PARVULARIA"
+  },
+  {
+    "faculty": "Fac. Educación",
+    "name": "PEDAGOGÍA EN ED. DIFERENCIAL"
+  },
+  {
+    "faculty": "Fac. Educación",
+    "name": "PEDAGOGÍA EN EDUCACIÓN BÁSICA"
+  },
+  {
+    "faculty": "Fac. Educación",
+    "name": "PEDAGOGÍA EN EDUCACIÓN FÍSICA"
+  },
+  {
+    "faculty": "Fac. Educación",
+    "name": "PEDAGOGÍA EN INGLÉS"
+  },
+  {
+    "faculty": "Fac. Cs Sociales y Humanidades",
+    "name": "PERIODISMO"
+  },
+  {
+    "faculty": "Fac. Administración y Negocios",
+    "name": "PROG. ESP. DE INTERCAMBIO INT."
+  },
+  {
+    "faculty": "Fac. Cs Sociales y Humanidades",
+    "name": "PSICOLOGÍA"
+  },
+  {
+    "faculty": "Fac. Cs de la Salud",
+    "name": "QUÍMICA Y FARMACIA"
+  },
+  {
+    "faculty": "Fac. Cs Sociales y Humanidades",
+    "name": "RELACIONES PÚBLICAS"
+  },
+  {
+    "faculty": "Fac. Cs de la Salud",
+    "name": "TERAPIA OCUPACIONAL"
+  },
+  {
+    "faculty": "Fac. Cs Sociales y Humanidades",
+    "name": "TRABAJO SOCIAL"
+  }
+]
