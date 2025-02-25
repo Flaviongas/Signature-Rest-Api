@@ -2,11 +2,20 @@
 
 from django.db import migrations
 from signature.models import Major
+import json
 
 
 class Migration(migrations.Migration):
-    def InsertMajors():
-        Major.objects.create(name='Computer Science', faculty='Engineering')
+    def InsertMajors(models, schema_editor):
+        f = open('majors.json')
+        data = json.load(f)
+
+        for major in data:
+            Major.objects.create(name=major.get(
+                'name'), faculty=major.get('faculty'))
+
+        # Closing file
+        f.close()
 
     dependencies = [
         ('signature', '0002_major_faculty'),
