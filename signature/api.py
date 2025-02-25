@@ -1,4 +1,4 @@
-from .models import Major
+from .models import Major, Subject
 from rest_framework import viewsets, permissions
 from .serializers import MajorSerializer, SubjectSerializer
 
@@ -12,7 +12,7 @@ class MajorViewSet(viewsets.ModelViewSet):
 
 
 class SubjectViewSet(viewsets.ModelViewSet):
-    queryset = Major.objects.all()
+    queryset = Subject.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]

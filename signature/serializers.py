@@ -9,6 +9,8 @@ class MajorSerializer(serializers.ModelSerializer):
 
 
 class SubjectSerializer(serializers.ModelSerializer):
+    major = MajorSerializer(read_only=True, many=True)
+
     class Meta:
         model = Subject
-        fields = '__all__'
+        fields = ('id', 'name', 'major',)
