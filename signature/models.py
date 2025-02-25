@@ -13,7 +13,7 @@ class Major(models.Model):
 
 class Subject(models.Model):
     name = models.CharField(max_length=200)
-    major = models.ManyToManyField(Major)
+    major = models.ManyToManyField(Major, related_name='subjects')
 
     def __str__(self):
         return self.name
