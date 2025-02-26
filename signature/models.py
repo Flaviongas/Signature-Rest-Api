@@ -12,7 +12,6 @@ class Major(models.Model):
 
 
 class Student(models.Model):
-    # TODO: Delete students to enforce new relationship
     rut = models.CharField(max_length=20)
     dv = models.CharField(max_length=1)
     first_name = models.CharField(max_length=200)

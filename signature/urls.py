@@ -1,5 +1,5 @@
 from rest_framework import routers
-from .api import MajorViewSet, SubjectViewSet, StudentViewSet
+from .views import MajorViewSet, SubjectViewSet, StudentViewSet
 
 router = routers.DefaultRouter()
 
