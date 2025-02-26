@@ -7,8 +7,7 @@ from .models import Major, Subject, Student
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('id', 'rut', 'dv', 'first_name', 'second_name',
-                  'last_name', 'second_last_name',)
+        fields = '__all__'
 
 
 class SubjectSerializer(serializers.ModelSerializer):
