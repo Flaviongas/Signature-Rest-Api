@@ -1,5 +1,6 @@
 from rest_framework import routers
-from .views import MajorViewSet, SubjectViewSet, StudentViewSet
+from django.urls import re_path
+from .views import MajorViewSet, SubjectViewSet, StudentViewSet, login, signup, test_token
 
 router = routers.DefaultRouter()
 
@@ -9,3 +10,7 @@ router.register('api/students', StudentViewSet, 'students')
 
 
 urlpatterns = router.urls
+
+urlpatterns += [re_path('login', login, ),
+                re_path('signup', signup, ),
+                re_path('test_token', test_token, )]

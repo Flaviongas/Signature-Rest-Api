@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Major, Subject, Student
+from django.contrib.auth.models import User
 
 # INFO: In models, the many to many relationship is defined in the Subject model.  So, the SubjectSerializer is defined first.
 
@@ -24,3 +25,9 @@ class MajorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Major
         fields = ('id', 'name', 'faculty', 'subjects',)
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = User
+        fields = ('id', 'username', 'password')
