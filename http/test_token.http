@@ -1,0 +1,8 @@
+POST http://localhost:8000/test_token
+Content-Type: application/json
+Authorization: Token 91e30c9ee42ac2c6dea8adf3e66c78c0048f21ef
+
+{
+"username": "flavio02",
+"password": "signature"
+}
