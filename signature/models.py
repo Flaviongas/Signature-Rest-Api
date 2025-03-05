@@ -19,7 +19,6 @@ class Student(models.Model):
     last_name = models.CharField(max_length=200)
     second_last_name = models.CharField(max_length=200)
     major = models.ForeignKey(Major, on_delete=models.CASCADE)
-    subject = models.ManyToManyField('Subject', related_name='subjects')
 
     def __str__(self):
         return self.name

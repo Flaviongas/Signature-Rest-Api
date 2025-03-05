@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 
 class StudentSerializer(serializers.ModelSerializer):
+    subjects = serializers.PrimaryKeyRelatedField(many=True,queryset=Subject.objects.all())
     class Meta:
         model = Student
         fields = '__all__'
