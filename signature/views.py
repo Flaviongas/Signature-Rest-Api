@@ -11,18 +11,16 @@ from django.shortcuts import get_object_or_404
 
 
 class StudentViewSet(viewsets.ModelViewSet):
+    authentication_classes = ( TokenAuthentication,SessionAuthentication, )
+    permission_classes = ( IsAuthenticated, )
     queryset = Student.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
     serializer_class = StudentSerializer
 
 
 class MajorViewSet(viewsets.ModelViewSet):
+    authentication_classes = ( TokenAuthentication,SessionAuthentication, )
+    permission_classes = ( IsAuthenticated, )
     queryset = Major.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
     serializer_class = MajorSerializer
 
     @action(detail=False, methods=["GET"])
@@ -34,10 +32,9 @@ class MajorViewSet(viewsets.ModelViewSet):
 
 
 class SubjectViewSet(viewsets.ModelViewSet):
+    authentication_classes = ( TokenAuthentication,SessionAuthentication, )
     queryset = Subject.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
+    permission_classes = ( IsAuthenticated, )
     serializer_class = SubjectSerializer
 
 
