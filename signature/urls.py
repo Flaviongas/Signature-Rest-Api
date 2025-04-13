@@ -1,16 +1,18 @@
 from rest_framework import routers
-from django.urls import re_path
-from .views import MajorViewSet, SubjectViewSet, StudentViewSet, login, signup, test_token
+from django.urls import path, include
+from .views import MajorViewSet, SubjectViewSet, StudentViewSet, login, signup, test_token, isAdmin
 
 router = routers.DefaultRouter()
+router.register('majors', MajorViewSet, basename='majors')
+router.register('subjects', SubjectViewSet, basename='subjects')
+router.register('students', StudentViewSet, basename='students')
 
-router.register('api/majors', MajorViewSet, 'majors')
-router.register('api/subjects', SubjectViewSet, 'subjects')
-router.register('api/students', StudentViewSet, 'students')
-
-
-urlpatterns = router.urls
-
-urlpatterns += [re_path('login', login, ),
-                re_path('signup', signup, ),
-                re_path('test_token', test_token, )]
+urlpatterns = [
+    path('api/', include(router.urls)),  # All API endpoints under /api/
+    
+    # Authentication endpoints
+    path('login/', login, name='login'),
+    path('signup/', signup, name='signup'),
+    path('test_token/', test_token, name='test_token'),
+    path('isAdmin/', isAdmin, name='isAdmin'),
+]

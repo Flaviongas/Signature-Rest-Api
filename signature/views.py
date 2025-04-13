@@ -40,6 +40,7 @@ class SubjectViewSet(viewsets.ModelViewSet):
 
 @api_view(['POST'])
 def login(request):
+    print("login")
     user = get_object_or_404(User, username=request.data['username'])
     if not user.check_password(request.data['password']):
         return Response({"error": "Invalid password"}, status=status.HTTP_401_UNAUTHORIZED)
@@ -69,3 +70,14 @@ def signup(request):
 @permission_classes([IsAuthenticated])
 def test_token(request):
     return Response({"passed for {}".format(request.user.username)})
+
+
+
+@api_view(['POST'])
+@authentication_classes([SessionAuthentication,TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def isAdmin(request):
+    print(request)
+    user = get_object_or_404(User, username=request.data['username'])
+    print(user)
+    return Response({"isAdmin": user.is_superuser})

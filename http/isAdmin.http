@@ -1,0 +1,7 @@
+POST http://localhost:8000/isAdmin/
+Authorization: Token f9eb392eb84de75065aa14e47ff758d22abac1ab 
+Content-Type: application/json
+
+{
+"username": "admin"
+}
