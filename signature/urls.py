@@ -8,9 +8,8 @@ router.register('subjects', SubjectViewSet, basename='subjects')
 router.register('students', StudentViewSet, basename='students')
 
 urlpatterns = [
-    path('api/', include(router.urls)),  # All API endpoints under /api/
+    path('api/', include(router.urls)),
     
-    # Authentication endpoints
     path('login/', login, name='login'),
     path('signup/', signup, name='signup'),
     path('test_token/', test_token, name='test_token'),
