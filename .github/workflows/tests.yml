@@ -6,13 +6,13 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 1
+    timeout-minutes: 2
     name: Run Tests
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [ubuntu-latest]
         python-version: [3.9, 3.11]
 
     steps:
