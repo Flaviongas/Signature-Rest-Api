@@ -31,4 +31,12 @@ jobs:
 
     - name: Run tests
       run: |
-        python manage.py runserver & sleep 5 && pytest
+        python manage.py runserver & echo $! > server.pid
+        sleep 5
+        
+        pytest
+        TEST_EXIT_CODE=$?
+        
+        kill $(cat server.pid)
+        
+        exit $TEST_EXIT_CODE 
