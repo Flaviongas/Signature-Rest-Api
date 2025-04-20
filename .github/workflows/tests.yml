@@ -31,8 +31,4 @@ jobs:
 
     - name: Run tests
       run: |
-        python manage.py runserver
-
-    - name: Run tests
-      run: |
-        pytest
+        python manage.py runserver & sleep 5 && pytest
