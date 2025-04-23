@@ -38,6 +38,16 @@ class SubjectViewSet(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
 
 
+class UserViewSet(viewsets.ModelViewSet):
+    authentication_classes = (TokenAuthentication, SessionAuthentication)
+    permission_classes = (IsAuthenticated,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+    def perform_create(self, serializer):
+        user = serializer.save()
+        Token.objects.get_or_create(user=user)
+
 @api_view(['POST'])
 def login(request):
     print("login")
