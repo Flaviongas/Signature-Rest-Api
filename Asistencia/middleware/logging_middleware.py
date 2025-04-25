@@ -5,10 +5,6 @@ import json
 import time
 import re
 
-
-
-
-
 logger = logging.getLogger('api')
 
 # Words sensitive to reject
@@ -32,7 +28,7 @@ class RequestLoggingMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
         duration = time.time() - request.start_time
         
-        # Obtener datos de la solicitud y filtrar información sensible
+        # Obtain user data
         request_data = {
             'user': str(request.user),
             'method': request.method,
@@ -44,10 +40,10 @@ class RequestLoggingMiddleware(MiddlewareMixin):
             'request_body': self.sanitize_data(self.parse_body(request)),
         }
         
-        # Determinar el nivel de log basado en el código de estado
+        # Determine log level based on status code
         log_level = self.get_log_level(response.status_code)
         
-        # Mensaje de log con colores
+        # Modify the log message with colors
         colored_method = self.color_method(request.method)
         colored_status = self.color_status(response.status_code)
         
@@ -58,10 +54,10 @@ class RequestLoggingMiddleware(MiddlewareMixin):
             f"Duration: {Fore.CYAN}{request_data['duration']}{Style.RESET_ALL})"
         )
         
-        # Registrar con el nivel apropiado
+        # Register the log message
         logger.log(log_level, log_message)
         
-        # Detalles adicionales en DEBUG
+        # Log the request details
         logger.debug(f"Request details: {request_data}")
         
         return response
