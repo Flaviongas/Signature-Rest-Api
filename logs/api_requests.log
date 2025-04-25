@@ -1,0 +1,3 @@
+INFO 2025-04-25 01:22:03,801 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-25 01:25:11,273 log Forbidden: /isAdmin/
+WARNING 2025-04-25 01:25:11,273 basehttp "POST /isAdmin/ HTTP/1.1" 403 58
