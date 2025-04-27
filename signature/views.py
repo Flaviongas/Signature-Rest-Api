@@ -11,15 +11,14 @@ from django.shortcuts import get_object_or_404
 
 
 class StudentViewSet(viewsets.ModelViewSet):
-    authentication_classes = ( TokenAuthentication,SessionAuthentication, )
-    permission_classes = ( IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, SessionAuthentication, )
+    permission_classes = (IsAuthenticated, )
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
 
 class MajorViewSet(viewsets.ModelViewSet):
-    authentication_classes = ( TokenAuthentication,SessionAuthentication, )
-    permission_classes = ( IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, SessionAuthentication, )
     queryset = Major.objects.all()
     serializer_class = MajorSerializer
 
@@ -32,9 +31,9 @@ class MajorViewSet(viewsets.ModelViewSet):
 
 
 class SubjectViewSet(viewsets.ModelViewSet):
-    authentication_classes = ( TokenAuthentication,SessionAuthentication, )
+    authentication_classes = (TokenAuthentication, SessionAuthentication, )
     queryset = Subject.objects.all()
-    permission_classes = ( IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = SubjectSerializer
 
 
@@ -76,15 +75,14 @@ def signup(request):
 
 
 @api_view(['POST'])
-@authentication_classes([SessionAuthentication,TokenAuthentication])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def test_token(request):
     return Response({"passed for {}".format(request.user.username)})
 
 
-
 @api_view(['POST'])
-@authentication_classes([SessionAuthentication,TokenAuthentication])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def isAdmin(request):
     print(request)
