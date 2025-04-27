@@ -1,12 +1,16 @@
 from rest_framework import serializers
 from .models import Major, Subject, Student
-from django.contrib.auth.models import User
 
 # INFO: In models, the many to many relationship is defined in the Subject model.  So, the SubjectSerializer is defined first.
+from django.contrib.auth import get_user_model
+
+User = get_user_model()  # PermissionUser
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    subjects = serializers.PrimaryKeyRelatedField(many=True,queryset=Subject.objects.all())
+    subjects = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Subject.objects.all())
+
     class Meta:
         model = Student
         fields = '__all__'
@@ -88,3 +92,4 @@ class UserSerializer(serializers.ModelSerializer):
         #     raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
         
         # return value
+        fields = ('id', 'username', 'majors')

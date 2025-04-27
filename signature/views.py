@@ -4,10 +4,12 @@ from .serializers import MajorSerializer, SubjectSerializer, StudentSerializer, 
 from rest_framework.decorators import action, api_view, permission_classes, authentication_classes
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+
+from django.contrib.auth import get_user_model
+User = get_user_model()  # This gets your custom PermissionUser
 
 
 class StudentViewSet(viewsets.ModelViewSet):
@@ -66,8 +68,11 @@ def signup(request):
     if serializer.is_valid():
         serializer.save()
         user = User.objects.get(username=serializer.data['username'])
-        # Automatic hashing with set_password
         user.set_password(request.data['password'])
+        majors = request.data['majors']
+        for major in majors:
+            major_obj = Major.objects.get(id=major)
+            user.majors.add(major_obj)
         user.save()
         token = Token.objects.create(user=user)
         return Response({"token": token.key, "user": serializer.data})
