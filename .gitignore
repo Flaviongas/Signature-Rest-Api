@@ -1,5 +1,10 @@
 **/__pycache__/
-Asistencia /__pycache__/
-signature/migrations/ __pycache__/
+*/__pycache__/
+Asistencia /__pycache__
+signature/migrations/__pycache__/
 .venv/
-venv/
+__pycache__/
+
+__pycache__/
+*.py[cod]
+*$py.class
