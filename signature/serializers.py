@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Major, Subject, Student
+import re 
 
 # INFO: In models, the many to many relationship is defined in the Subject model.  So, the SubjectSerializer is defined first.
 from django.contrib.auth import get_user_model
@@ -33,25 +34,43 @@ class MajorSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True, required=False)
+    major_ids = serializers.PrimaryKeyRelatedField(
+        source='majors',
+        queryset=Major.objects.all(),   # Usamos el modelo de Major
+        many=True,                      # Puede ser una lista de IDs
+        write_only=True,                # Este campo es solo para escritura
+        required=False                  # No es obligatorio en el POST si no quieres asociar carreras al principio
+    )
+    majors = MajorSerializer(many=True, read_only=True) 
+
     
     class Meta(object):
         model = User
-        fields = ('id', 'username', 'password')
+        fields = ('id', 'username', 'password', 'majors', 'major_ids')
     
     def create(self, validated_data):
-                
+        majors = validated_data.pop('majors', [])
+        print(majors)
         password = validated_data.pop('password')
         
-        user = User.objects.create(**validated_data)
+        if not password:
+            raise serializers.ValidationError({"password": "La contraseña es obligatoria."})
         
+        if not majors:
+            raise serializers.ValidationError({"majors": "El usuario debe tener asignado por lo menos una carrera."})
+        
+        user = User(**validated_data)  
         user.set_password(password)
-        
         user.save()
+        
+        if majors:
+            user.majors.set(majors) 
         
         return user
     
     def update(self, instance, validated_data):
+        majors = validated_data.pop('majors', None)
         password = validated_data.pop('password', None)
 
         for key, value in validated_data.items():
@@ -60,6 +79,9 @@ class UserSerializer(serializers.ModelSerializer):
 
         if password:
             instance.set_password(password)
+        
+        if majors is not None: 
+            instance.majors.set(majors)
 
         instance.save()
         
@@ -69,8 +91,8 @@ class UserSerializer(serializers.ModelSerializer):
         if not value:
             raise ValidationError("El nombre de usuario es obligatorio.")
         
-        if not value.isalpha():
-            raise serializers.ValidationError("El nombre de usuario solo puede contener letras.")
+        if not re.match(r'^[a-zA-Z0-9]+$', value):
+            raise serializers.ValidationError("El nombre de usuario solo puede contener letras y números.")
         
         return value
     
@@ -91,5 +113,4 @@ class UserSerializer(serializers.ModelSerializer):
         # if not re.search(r'[A-Z]', value):
         #     raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
         
-        # return value
-        fields = ('id', 'username', 'majors')
+        return value

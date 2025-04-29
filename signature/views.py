@@ -69,10 +69,11 @@ def signup(request):
         serializer.save()
         user = User.objects.get(username=serializer.data['username'])
         user.set_password(request.data['password'])
-        majors = request.data['majors']
-        for major in majors:
-            major_obj = Major.objects.get(id=major)
-            user.majors.add(major_obj)
+        if 'majors' in request.data:     
+            majors = request.data['majors']
+            for major in majors:
+                major_obj = Major.objects.get(id=major)
+                user.majors.add(major_obj)
         user.save()
         token = Token.objects.create(user=user)
         return Response({"token": token.key, "user": serializer.data})
