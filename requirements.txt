@@ -7,3 +7,4 @@ requests
 django-cors-headers
 shortuuid
 pytest
+dotenv
