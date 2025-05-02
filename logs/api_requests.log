@@ -1122,3 +1122,233 @@ INFO 2025-04-29 01:24:50,691 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
 INFO 2025-04-29 01:24:50,703 basehttp "GET /api/users/23/ HTTP/1.1" 200 1219
 INFO 2025-04-29 01:24:50,815 basehttp "GET /api/users/23/ HTTP/1.1" 200 1219
 INFO 2025-04-29 01:24:50,845 basehttp "GET /api/users/23/ HTTP/1.1" 200 1219
+INFO 2025-05-01 17:55:54,722 autoreload Watching for file changes with StatReloader
+INFO 2025-05-01 17:55:59,981 basehttp "OPTIONS /login/ HTTP/1.1" 200 0
+WARNING 2025-05-01 17:56:00,946 log Unauthorized: /login/
+WARNING 2025-05-01 17:56:00,947 basehttp "POST /login/ HTTP/1.1" 401 28
+WARNING 2025-05-01 17:56:10,253 log Unauthorized: /login/
+WARNING 2025-05-01 17:56:10,254 basehttp "POST /login/ HTTP/1.1" 401 28
+WARNING 2025-05-01 17:56:14,113 log Unauthorized: /login/
+WARNING 2025-05-01 17:56:14,114 basehttp "POST /login/ HTTP/1.1" 401 28
+WARNING 2025-05-01 17:56:41,532 log Not Found: /singup/
+WARNING 2025-05-01 17:56:41,533 basehttp "POST /singup/ HTTP/1.1" 404 179
+WARNING 2025-05-01 17:56:49,461 log Not Found: /singup
+WARNING 2025-05-01 17:56:49,461 basehttp "POST /singup HTTP/1.1" 404 179
+WARNING 2025-05-01 17:57:07,465 log Bad Request: /signup/
+WARNING 2025-05-01 17:57:07,466 basehttp "POST /signup/ HTTP/1.1" 400 58
+WARNING 2025-05-01 17:57:16,025 log Unauthorized: /login/
+WARNING 2025-05-01 17:57:16,026 basehttp "POST /login/ HTTP/1.1" 401 28
+WARNING 2025-05-01 17:57:25,069 log Bad Request: /signup/
+WARNING 2025-05-01 17:57:25,070 basehttp "POST /signup/ HTTP/1.1" 400 58
+WARNING 2025-05-01 17:57:29,148 log Bad Request: /signup/
+WARNING 2025-05-01 17:57:29,149 basehttp "POST /signup/ HTTP/1.1" 400 58
+INFO 2025-05-01 17:57:36,614 basehttp "POST /signup/ HTTP/1.1" 200 484
+INFO 2025-05-01 17:57:46,516 basehttp "POST /signup/ HTTP/1.1" 200 480
+INFO 2025-05-01 17:58:00,842 basehttp "POST /login/ HTTP/1.1" 200 480
+INFO 2025-05-01 17:58:01,726 basehttp "OPTIONS /api/users/26/ HTTP/1.1" 200 0
+INFO 2025-05-01 17:58:01,730 basehttp "OPTIONS /api/subjects/ HTTP/1.1" 200 0
+INFO 2025-05-01 17:58:01,771 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-01 17:58:01,771 basehttp "GET /api/users/26/ HTTP/1.1" 200 420
+INFO 2025-05-01 17:58:01,812 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-01 17:58:01,812 basehttp "GET /api/users/26/ HTTP/1.1" 200 420
+INFO 2025-05-01 17:58:01,838 basehttp "GET /api/users/26/ HTTP/1.1" 200 420
+INFO 2025-05-01 17:58:01,867 basehttp "GET /api/users/26/ HTTP/1.1" 200 420
+INFO 2025-05-01 17:58:12,661 basehttp "OPTIONS /api/users/ HTTP/1.1" 200 0
+INFO 2025-05-01 17:58:12,664 basehttp "OPTIONS /api/users/ HTTP/1.1" 200 0
+INFO 2025-05-01 17:58:12,726 basehttp "GET /api/users/ HTTP/1.1" 200 5677
+INFO 2025-05-01 17:58:12,817 basehttp "GET /api/users/ HTTP/1.1" 200 5677
+INFO 2025-05-02 11:27:22,793 autoreload Watching for file changes with StatReloader
+INFO 2025-05-02 11:31:32,713 basehttp "OPTIONS /login/ HTTP/1.1" 200 0
+INFO 2025-05-02 11:31:33,621 basehttp "POST /login/ HTTP/1.1" 200 480
+INFO 2025-05-02 11:31:34,385 basehttp "OPTIONS /api/users/21/ HTTP/1.1" 200 0
+INFO 2025-05-02 11:31:34,407 basehttp "OPTIONS /api/subjects/ HTTP/1.1" 200 0
+INFO 2025-05-02 11:31:34,415 basehttp "OPTIONS /api/subjects/ HTTP/1.1" 200 0
+INFO 2025-05-02 11:31:34,422 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:31:34,471 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:31:34,471 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 11:31:34,501 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:31:34,509 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 11:31:34,523 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:31:36,318 basehttp "OPTIONS /api/users/ HTTP/1.1" 200 0
+INFO 2025-05-02 11:31:36,361 basehttp "GET /api/users/ HTTP/1.1" 200 5677
+INFO 2025-05-02 11:31:36,409 basehttp "GET /api/users/ HTTP/1.1" 200 5677
+INFO 2025-05-02 11:42:02,484 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:42:02,486 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 11:42:02,506 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:42:02,514 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 11:42:02,519 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:42:02,532 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:42:04,409 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:42:04,416 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 11:42:04,429 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:42:04,446 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 11:42:04,451 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:42:04,463 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:42:05,524 basehttp "GET /api/users/ HTTP/1.1" 200 5677
+INFO 2025-05-02 11:42:05,575 basehttp "GET /api/users/ HTTP/1.1" 200 5677
+INFO 2025-05-02 11:45:11,706 autoreload C:\Users\timonM1\Desktop\Flavio proyecto\Signature-Rest-Api\signature\serializers.py changed, reloading.
+INFO 2025-05-02 11:45:12,541 autoreload Watching for file changes with StatReloader
+INFO 2025-05-02 11:45:17,908 autoreload C:\Users\timonM1\Desktop\Flavio proyecto\Signature-Rest-Api\signature\serializers.py changed, reloading.
+INFO 2025-05-02 11:45:18,742 autoreload Watching for file changes with StatReloader
+INFO 2025-05-02 11:47:58,165 autoreload C:\Users\timonM1\Desktop\Flavio proyecto\Signature-Rest-Api\signature\serializers.py changed, reloading.
+INFO 2025-05-02 11:47:58,947 autoreload Watching for file changes with StatReloader
+INFO 2025-05-02 11:48:00,817 autoreload C:\Users\timonM1\Desktop\Flavio proyecto\Signature-Rest-Api\signature\serializers.py changed, reloading.
+INFO 2025-05-02 11:48:01,557 autoreload Watching for file changes with StatReloader
+INFO 2025-05-02 11:48:18,443 autoreload C:\Users\timonM1\Desktop\Flavio proyecto\Signature-Rest-Api\signature\serializers.py changed, reloading.
+INFO 2025-05-02 11:48:19,197 autoreload Watching for file changes with StatReloader
+INFO 2025-05-02 11:48:21,277 autoreload C:\Users\timonM1\Desktop\Flavio proyecto\Signature-Rest-Api\signature\serializers.py changed, reloading.
+INFO 2025-05-02 11:48:22,063 autoreload Watching for file changes with StatReloader
+INFO 2025-05-02 11:54:14,822 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:54:14,826 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 11:54:14,846 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:54:14,848 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 11:54:14,859 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:54:14,868 basehttp "GET /api/users/21/ HTTP/1.1" 200 420
+INFO 2025-05-02 11:55:34,558 autoreload C:\Users\timonM1\Desktop\Flavio proyecto\Signature-Rest-Api\signature\serializers.py changed, reloading.
+INFO 2025-05-02 11:55:35,338 autoreload Watching for file changes with StatReloader
+INFO 2025-05-02 11:58:20,668 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:00:54,297 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:01:05,292 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:03:47,711 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:03:47,783 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:20:23,080 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:20:23,082 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:20:23,127 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:20:23,128 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:20:23,154 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:20:23,184 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:20:26,184 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:20:26,239 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:23:56,982 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:23:56,985 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:23:57,003 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:23:57,018 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:23:57,033 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:24:00,647 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:24:00,700 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:24:56,481 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:24:56,522 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:25:00,794 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:25:00,834 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:25:23,311 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:25:23,314 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:25:23,334 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:25:23,337 basehttp - Broken pipe from ('127.0.0.1', 54792)
+INFO 2025-05-02 12:25:25,311 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:25:25,317 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:25:25,331 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:25:25,332 basehttp - Broken pipe from ('127.0.0.1', 54793)
+INFO 2025-05-02 12:26:50,325 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:26:50,342 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:26:58,332 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:26:58,347 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:14,284 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:14,313 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:14,322 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:14,332 basehttp - Broken pipe from ('127.0.0.1', 54913)
+INFO 2025-05-02 12:27:17,765 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:17,779 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:17,791 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:17,804 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:17,811 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:17,829 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:29,084 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:29,105 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:29,120 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:29,130 basehttp - Broken pipe from ('127.0.0.1', 54884)
+INFO 2025-05-02 12:27:39,635 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:39,655 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:39,673 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:39,681 basehttp - Broken pipe from ('127.0.0.1', 54885)
+INFO 2025-05-02 12:27:41,134 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,157 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:41,168 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,218 basehttp - Broken pipe from ('127.0.0.1', 54926)
+INFO 2025-05-02 12:27:41,370 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,399 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:41,410 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,423 basehttp - Broken pipe from ('127.0.0.1', 54927)
+INFO 2025-05-02 12:27:41,542 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,575 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:41,588 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,598 basehttp - Broken pipe from ('127.0.0.1', 54929)
+INFO 2025-05-02 12:27:41,718 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,737 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:41,754 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,761 basehttp - Broken pipe from ('127.0.0.1', 54928)
+INFO 2025-05-02 12:27:41,875 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,916 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:41,931 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:41,940 basehttp - Broken pipe from ('127.0.0.1', 54931)
+INFO 2025-05-02 12:27:50,546 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:50,573 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:50,595 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:50,616 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:27:50,630 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:50,661 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:27:59,923 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:27:59,971 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:30:26,381 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:30:26,396 basehttp "GET /api/users/ HTTP/1.1" 200 5992
+INFO 2025-05-02 12:30:26,410 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:30:26,417 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:30:26,445 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:30:26,447 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:30:26,461 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:31:48,666 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:31:48,668 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:31:48,685 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:31:48,687 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:31:48,694 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:31:48,793 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:31:53,308 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:31:53,310 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:31:53,324 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:31:53,326 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:31:53,333 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:31:53,434 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:35,428 basehttp "POST /login/ HTTP/1.1" 200 501
+INFO 2025-05-02 12:39:35,685 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:35,704 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:39:35,710 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:35,736 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:35,736 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:39:35,752 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:39,229 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:39,233 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:39:39,251 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:39,252 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:39:39,265 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:44,196 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:44,201 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:39:44,212 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:44,220 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:39:44,226 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:39:44,330 basehttp "GET /api/users/21/ HTTP/1.1" 200 441
+INFO 2025-05-02 12:46:30,253 basehttp "POST /login/ HTTP/1.1" 200 118
+INFO 2025-05-02 12:46:30,709 basehttp "OPTIONS /api/users/27/ HTTP/1.1" 200 0
+INFO 2025-05-02 12:46:30,770 basehttp "OPTIONS /api/users/27/ HTTP/1.1" 200 0
+INFO 2025-05-02 12:46:30,789 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:46:30,790 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:30,826 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:30,828 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:46:30,839 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:30,852 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:33,614 basehttp "GET /api/users/ HTTP/1.1" 200 6051
+INFO 2025-05-02 12:46:33,690 basehttp "GET /api/users/ HTTP/1.1" 200 6051
+INFO 2025-05-02 12:46:35,227 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:35,247 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:46:35,248 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:35,265 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:35,288 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:35,288 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:46:36,355 basehttp "GET /api/users/ HTTP/1.1" 200 6051
+INFO 2025-05-02 12:46:36,425 basehttp "GET /api/users/ HTTP/1.1" 200 6051
+INFO 2025-05-02 12:46:41,472 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:41,493 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:41,494 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:46:41,514 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:41,527 basehttp "GET /api/subjects/ HTTP/1.1" 200 900
+INFO 2025-05-02 12:46:41,529 basehttp "GET /api/users/27/ HTTP/1.1" 200 58
+INFO 2025-05-02 12:46:51,676 basehttp "GET /api/users/ HTTP/1.1" 200 6051
+INFO 2025-05-02 17:56:29,081 autoreload Watching for file changes with StatReloader
