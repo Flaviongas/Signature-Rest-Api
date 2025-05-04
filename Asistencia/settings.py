@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import logging.handlers
 import os
 from dotenv import load_dotenv
 
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'signature.middleware.logging_middleware.RequestLoggingMiddleware',  
 ]
 
 ROOT_URLCONF = 'Asistencia.urls'
@@ -140,6 +142,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
+            '()': 'signature.middleware.logging_formatters.NoColorFormatter', 
             'format': '{levelname} {asctime} {module} {message}',
             'style': '{',
         },
@@ -151,9 +154,11 @@ LOGGING = {
     'handlers': {
         'file': {
             'level': 'INFO',
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',  # Rotación para evitar archivos muy grandes
             'filename': os.path.join(LOG_DIR, 'api_requests.log'),
-            'formatter': 'verbose'
+            'formatter': 'verbose',
+            'maxBytes': 5 * 1024 * 1024,  # 5MB
+            'backupCount': 5,
         },
         'console': {
             'level': 'DEBUG',
@@ -165,11 +170,15 @@ LOGGING = {
         'django': {
             'handlers': ['file', 'console'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'api': {
             'handlers': ['file', 'console'],
             'level': 'DEBUG',
+        },
+        'django.server': {  
+            'handlers': [],
+            'propagate': False,
         },
     },
 }

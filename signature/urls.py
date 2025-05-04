@@ -10,7 +10,6 @@ router.register('users', UserViewSet, basename='users')
 
 urlpatterns = [
     path('api/', include(router.urls)),
-
     path('login/', login, name='login'),
     path('signup/', signup, name='signup'),
     path('test_token/', test_token, name='test_token'),

@@ -57,6 +57,7 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"password": "La contraseña es obligatoria."})
         
         if not majors:
+            
             raise serializers.ValidationError({"majors": "El usuario debe tener asignado por lo menos una carrera."})
         
         user = User(**validated_data)
@@ -71,7 +72,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     
     def update(self, instance, validated_data):
-        majors = validated_data.pop('majors', None)
+        majors = validated_data.pop('majors', [])
         password = validated_data.pop('password', None)
 
         for key, value in validated_data.items():
@@ -81,16 +82,17 @@ class UserSerializer(serializers.ModelSerializer):
         if password:
             instance.set_password(password)
         
-        if majors is not None: 
+        if majors: 
             instance.majors.set(majors)
-
+        else:
+             raise serializers.ValidationError({"majors": "El usuario debe tener asignado por lo menos una carrera."})
         instance.save()
         
         return instance
 
     def validate_username(self, value):
         if not value:
-            raise ValidationError("El nombre de usuario es obligatorio.")
+            raise serializers.ValidationError("El nombre de usuario es obligatorio.")
         
         if not re.match(r'^[a-zA-Z0-9]+$', value):
             raise serializers.ValidationError("El nombre de usuario solo puede contener letras y números.")
