@@ -43,11 +43,10 @@ class UserSerializer(serializers.ModelSerializer):
         required=False                  # No es obligatorio en el POST si no quieres asociar carreras al principio
     )
     majors = MajorSerializer(many=True, read_only=True) 
-
     
     class Meta(object):
         model = User
-        fields = ('id', 'username', 'password', 'majors', 'major_ids')
+        fields = ('id', 'username', 'password', 'majors', 'major_ids', 'is_superuser')
     
     def create(self, validated_data):
         majors = validated_data.pop('majors', [])
@@ -61,7 +60,9 @@ class UserSerializer(serializers.ModelSerializer):
             
             raise serializers.ValidationError({"majors": "El usuario debe tener asignado por lo menos una carrera."})
         
-        user = User(**validated_data)  
+        user = User(**validated_data)
+        user.is_superuser = False
+        user.is_staff = False  
         user.set_password(password)
         user.save()
         

@@ -1,6 +1,6 @@
 from rest_framework import routers
 from django.urls import path, include
-from .views import MajorViewSet, SubjectViewSet, StudentViewSet, UserViewSet, login, signup, test_token, isAdmin
+from .views import MajorViewSet, SubjectViewSet, StudentViewSet, UserViewSet, login, signup, test_token, isAdmin,sendEmail
 
 router = routers.DefaultRouter()
 router.register('majors', MajorViewSet, basename='majors')
@@ -14,4 +14,5 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('test_token/', test_token, name='test_token'),
     path('isAdmin/', isAdmin, name='isAdmin'),
+    path('sendEmail/', sendEmail, name='sendEmail'),
 ]

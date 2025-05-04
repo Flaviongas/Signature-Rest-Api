@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import logging.handlers
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Create directory for logs if it doesn't exist
 LOG_DIR = os.path.join(Path(__file__).resolve().parent.parent, 'logs')
@@ -180,3 +183,6 @@ LOGGING = {
     },
 }
 AUTH_USER_MODEL = 'signature.PermissionUser'
+
+EMAIL_ADDRESS = os.getenv('EMAIL_ADDRESS')
+EMAIL_APP_PASSWORD = os.getenv('EMAIL_APP_PASSWORD')
