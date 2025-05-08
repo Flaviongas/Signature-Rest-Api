@@ -8,3 +8,5 @@ django-cors-headers
 shortuuid
 pytest
 dotenv
+py3-validate-email
+

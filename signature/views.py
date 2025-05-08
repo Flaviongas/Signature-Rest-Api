@@ -1,4 +1,7 @@
-from django.utils.ipv6 import clean_ipv6_address
+import re
+from validate_email import validate_email
+import socket
+import dns.resolver
 from Asistencia.settings import EMAIL_ADDRESS, EMAIL_APP_PASSWORD
 from signature.utils import generate_email_text
 from .models import Major, Subject, Student
@@ -149,17 +152,43 @@ def sendEmail(request):
     recipient = request.POST['email']
     subject = request.POST['subject']
     excel = request.FILES['file']
-    email = MIMEMultipart()
-    email['From'] = EMAIL_ADDRESS
-    email['To'] = recipient
-    email['Subject'] = filename
-    email.attach(MIMEText(generate_email_text(filename,subject), 'plain'))
-    with smtplib.SMTP(SMPTP_SERVER, SMTP_PORT) as server:
-        server.starttls()
-        server.login(EMAIL_ADDRESS, EMAIL_APP_PASSWORD)
-        excel_data = excel.read()
-        part = MIMEApplication(excel_data, Name=filename)
-        part['Content-Disposition'] = f'attachment; filename="{filename}"'
-        email.attach(part)
-        server.sendmail(EMAIL_ADDRESS, recipient, email.as_string())
-    return Response(200)
+
+    match = re.match(r"[^@]+@[^@]+\.[^@]+", recipient)
+    if match == None:
+        return Response({"error": "Email inválido"}, status=status.HTTP_400_BAD_REQUEST)
+
+    email_domain = recipient.split('@')[1]
+
+    is_valid = validate_email(
+        email_address=recipient,
+        check_format=True,
+        check_blacklist=True,
+        check_dns=True,
+        dns_timeout=10,
+        check_smtp=True,
+        smtp_timeout=10,
+        smtp_helo_host=email_domain,
+        smtp_from_address=EMAIL_ADDRESS,
+        smtp_skip_tls=False,
+        smtp_tls_context=None,
+        smtp_debug=False)
+
+    
+    if is_valid:
+        email = MIMEMultipart()
+        email['From'] = EMAIL_ADDRESS
+        email['To'] = recipient
+        email['Subject'] = filename
+        email.attach(MIMEText(generate_email_text(filename,subject), 'plain'))
+
+        with smtplib.SMTP(SMPTP_SERVER, SMTP_PORT) as server:
+            server.starttls()
+            server.login(EMAIL_ADDRESS, EMAIL_APP_PASSWORD)
+            excel_data = excel.read()
+            part = MIMEApplication(excel_data, Name=filename)
+            part['Content-Disposition'] = f'attachment; filename="{filename}"'
+            email.attach(part)
+            server.sendmail(EMAIL_ADDRESS, recipient, email.as_string())
+        return Response(200)
+    else:
+        return Response({"error": "El email ingresado no existe"}, status=status.HTTP_400_BAD_REQUEST)
