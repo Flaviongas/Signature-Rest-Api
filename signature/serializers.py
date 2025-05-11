@@ -117,3 +117,82 @@ class UserSerializer(serializers.ModelSerializer):
         #     raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
         
         return value
+
+class AddSubjectSerializer(serializers.Serializer):
+    student_id = serializers.IntegerField()
+    subject_id = serializers.IntegerField()
+
+
+    def validate(self, data):
+        try:
+            student = Student.objects.get(id=data['student_id'])
+        except Student.DoesNotExist:
+            raise serializers.ValidationError("Student not found")
+
+        try:
+            subject = Subject.objects.get(id=data['subject_id'])
+        except Subject.DoesNotExist:
+            raise serializers.ValidationError("Subject not found")
+
+        if student.major != subject.major:
+            raise serializers.ValidationError("Subject does not belong to student's major")
+
+        self.student = student
+        self.subject = subject
+        return data
+
+    def save(self):
+        self.student.subjects.add(self.subject)
+        
+class RemoveSubjectSerializer(serializers.Serializer):
+    student_id = serializers.IntegerField()
+    subject_id = serializers.IntegerField()
+
+    def validate(self, data):
+        try:
+            student = Student.objects.get(id=data['student_id'])
+        except Student.DoesNotExist:
+            raise serializers.ValidationError("Student not found")
+        
+        try:
+            subject = Subject.objects.get(id=data['subject_id'])
+        except Subject.DoesNotExist:
+            raise serializers.ValidationError("Subject not found")
+        
+        if student.major != subject.major:
+            raise serializers.ValidationError("Subject does not belong to student's major")
+        
+        self.student = student
+        self.subject = subject
+        return data
+    
+    def save(self):
+        self.student.subjects.remove(self.subject)
+class UpdateSubjectSerializer(serializers.Serializer):
+    student_id = serializers.IntegerField()
+    current_subject_id = serializers.IntegerField()
+    new_subject_id = serializers.IntegerField()
+    def validate(self, data):
+        try:
+            student = Student.objects.get(id=data['student_id'])
+
+        except Student.DoesNotExist:
+            raise serializers.ValidationError("Student not found")
+        try:
+            current_subject = Subject.objects.get(id=data['current_subject_id'])
+            new_subject = Subject.objects.get(id=data['new_subject_id'])
+        except Subject.DoesNotExist:
+            raise serializers.ValidationError("Subject not found")
+        
+        if student.major != new_subject.major:
+            raise serializers.ValidationError("New subject does not belong to student's major")
+
+        self.student = student
+        self.current_subject = current_subject
+        self.new_subject = new_subject
+
+        return data
+    
+    def save(self):
+        self.student.subjects.remove(self.current_subject)
+        self.student.subjects.add(self.new_subject)

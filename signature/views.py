@@ -6,7 +6,7 @@ from Asistencia.settings import EMAIL_ADDRESS, EMAIL_APP_PASSWORD
 from signature.utils import generate_email_text
 from .models import Major, Subject, Student
 from rest_framework import viewsets, status
-from .serializers import MajorSerializer, SubjectSerializer, StudentSerializer, UserSerializer
+from .serializers import MajorSerializer, SubjectSerializer, StudentSerializer, UserSerializer, AddSubjectSerializer, RemoveSubjectSerializer, UpdateSubjectSerializer
 from rest_framework.decorators import action, api_view, permission_classes, authentication_classes
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -22,7 +22,7 @@ from email.mime.multipart import MIMEMultipart
 User = get_user_model()  # This gets your custom PermissionUser
 SMPTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
-
+#54297b8e32ea02ef3fe47d0c0b2595b8bb71a036
 
 class StudentViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication, SessionAuthentication, )
@@ -32,58 +32,45 @@ class StudentViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['POST'], url_path='add-subject')
     def add_subject(self, request):
-        student = request.data.get('student_id')
-        subject_id = request.data.get('subject_id')
-
         try:
-            subject = Subject.objects.get(id=subject_id)
-            student = Student.objects.get(id=student)
-            if student.major not in subject.major.all():
-                return Response(
-                {'error': 'New subject does not belong to student\'s major'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-            student.subjects.add(subject)
-            return Response({'status': 'subject added'}, status=status.HTTP_200_OK)
-        except Subject.DoesNotExist:
-            return Response({'error': 'Subject not found'}, status=status.HTTP_400_BAD_REQUEST)
+            serializer = AddSubjectSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'status': 'subject added'}, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
     @action(detail=False, methods=['POST'], url_path='remove-subject')
     def remove_subject(self, request):
-        student = request.data.get('student_id')
-        subject_id = request.data.get('subject_id')
-
         try:
-            student = Student.objects.get(id=student)
-            subject = Subject.objects.get(id=subject_id)
-            student.subjects.remove(subject)
-            return Response({'status': 'subject removed'}, status=status.HTTP_200_OK)
-        except Subject.DoesNotExist:
-            return Response({'error': 'Subject not found'}, status=status.HTTP_400_BAD_REQUEST)
+            serializer = RemoveSubjectSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'status': 'subject removed'}, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
 
     @action(detail=False, methods=['PUT'], url_path='update-subject')
     def update_subject(self, request):
-        student = request.data.get('student_id')
-        current_subject_id = request.data.get('current_subject_id')
-        new_subject_id = request.data.get('new_subject_id')
-
-        
+     
         try:
-            student = Student.objects.get(id=student)
-            current_subject = Subject.objects.get(id=current_subject_id)
-            new_subject = Subject.objects.get(id=new_subject_id)
-           
-            if student.major not in new_subject.major.all():
-                return Response(
-                {'error': 'New subject does not belong to student\'s major'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-            student.subjects.add(new_subject)
-            student.subjects.remove(current_subject)
-            return Response({'status': 'subject updated'}, status=status.HTTP_200_OK)
-        except Subject.DoesNotExist:
-            return Response({'error': 'Subject not found'}, status=status.HTTP_400_BAD_REQUEST)
+            serializer = UpdateSubjectSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'status': 'subject updated'}, status=status.HTTP_200_OK)  
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
         
 class MajorViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication, SessionAuthentication, )
