@@ -43,7 +43,7 @@ class StudentViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
-    @action(detail=False, methods=['POST'], url_path='remove-subject')
+    @action(detail=False, methods=['DELETE'], url_path='delete-subject')
     def remove_subject(self, request):
         try:
             serializer = RemoveSubjectSerializer(data=request.data)
