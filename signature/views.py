@@ -123,6 +123,9 @@ class UserViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         user = serializer.save()
         Token.objects.get_or_create(user=user)
+        
+         # Guardar el nombre del nuevo recurso
+        self.request._resource_name = user.username
 
     def get_object(self):
         instance = super().get_object()
@@ -131,12 +134,8 @@ class UserViewSet(viewsets.ModelViewSet):
         self.request.META['RESOURCE_NAME'] = getattr(instance, 'name', str(instance))
         return instance
 
-    def perform_create(self, serializer):
-        user = serializer.save()
-        Token.objects.get_or_create(user=user)
-
-        # Guardar el nombre del nuevo recurso
-        self.request._resource_name = user.username
+       
+        
 
 @api_view(['POST'])
 def login(request):

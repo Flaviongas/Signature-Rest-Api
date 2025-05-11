@@ -127,15 +127,15 @@ class AddSubjectSerializer(serializers.Serializer):
         try:
             student = Student.objects.get(id=data['student_id'])
         except Student.DoesNotExist:
-            raise serializers.ValidationError("Student not found")
+            raise serializers.ValidationError("Estudiante no encontrado")
 
         try:
             subject = Subject.objects.get(id=data['subject_id'])
         except Subject.DoesNotExist:
-            raise serializers.ValidationError("Subject not found")
+            raise serializers.ValidationError("Materia no encontrada")
 
         if student.major != subject.major:
-            raise serializers.ValidationError("Subject does not belong to student's major")
+            raise serializers.ValidationError("La materia no pertenece a la carrera del estudiante")
 
         self.student = student
         self.subject = subject
@@ -152,15 +152,15 @@ class RemoveSubjectSerializer(serializers.Serializer):
         try:
             student = Student.objects.get(id=data['student_id'])
         except Student.DoesNotExist:
-            raise serializers.ValidationError("Student not found")
+            raise serializers.ValidationError("Estudiante no encontrado")
         
         try:
             subject = Subject.objects.get(id=data['subject_id'])
         except Subject.DoesNotExist:
-            raise serializers.ValidationError("Subject not found")
+            raise serializers.ValidationError("Materia no encontrada")
         
         if student.major != subject.major:
-            raise serializers.ValidationError("Subject does not belong to student's major")
+            raise serializers.ValidationError("La materia no pertenece a la carrera del estudiante")
         
         self.student = student
         self.subject = subject
@@ -177,15 +177,15 @@ class UpdateSubjectSerializer(serializers.Serializer):
             student = Student.objects.get(id=data['student_id'])
 
         except Student.DoesNotExist:
-            raise serializers.ValidationError("Student not found")
+            raise serializers.ValidationError("Estudiante no encontrado")
         try:
             current_subject = Subject.objects.get(id=data['current_subject_id'])
             new_subject = Subject.objects.get(id=data['new_subject_id'])
         except Subject.DoesNotExist:
-            raise serializers.ValidationError("Subject not found")
+            raise serializers.ValidationError("Materia no encontrada")
         
         if student.major != new_subject.major:
-            raise serializers.ValidationError("New subject does not belong to student's major")
+            raise serializers.ValidationError("La nueva materia no pertenece a la carrera del estudiante")
 
         self.student = student
         self.current_subject = current_subject
