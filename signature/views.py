@@ -6,7 +6,7 @@ from Asistencia.settings import EMAIL_ADDRESS, EMAIL_APP_PASSWORD
 from signature.utils import generate_email_text
 from .models import Major, Subject, Student
 from rest_framework import viewsets, status
-from .serializers import MajorSerializer, SubjectSerializer, StudentSerializer, UserSerializer, AddSubjectSerializer, RemoveSubjectSerializer, UpdateSubjectSerializer
+from .serializers import MajorSerializer, SubjectSerializer, StudentSerializer, UserSerializer, AddSubjectSerializer, RemoveSubjectSerializer, UpdateSubjectSerializer, DeleteStudentSerializer, CreateStudentSerializer, UpdateStudentSerializer
 from rest_framework.decorators import action, api_view, permission_classes, authentication_classes
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -22,7 +22,7 @@ from email.mime.multipart import MIMEMultipart
 User = get_user_model()  # This gets your custom PermissionUser
 SMPTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
-#54297b8e32ea02ef3fe47d0c0b2595b8bb71a036
+
 
 class StudentViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication, SessionAuthentication, )
@@ -30,6 +30,61 @@ class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
+    # below are the actions to create, delete and get students
+    @action(detail=False, methods=['POST'], url_path='create-student')
+    def create_student(self, request):
+        try:
+            serializer = CreateStudentSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'status': 'Estudiante creado'}, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=False, methods=['POST'], url_path='get-student-bymajor')
+    def get_student_bymajor(self, request):
+        try:
+            
+            major_id = request.data.get('major_id')
+            if not major_id:
+                return Response({'error': 'La carrera no existe'}, status=status.HTTP_400_BAD_REQUEST)
+
+            students = Student.objects.filter(major_id=major_id)
+            serializer = self.get_serializer(students, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['DELETE'], url_path='delete-student')
+    def delete_student(self, request):
+        try:
+            serializer = DeleteStudentSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'status': 'Estudiante borrado'}, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+    @action(detail=False, methods=['PUT'], url_path='update-student')
+    def update_student(self, request):
+        try:
+            serializer = UpdateStudentSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'status': 'Estudiante actualizado'}, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Below are the actions to add, remove and update subjects for a student
     @action(detail=False, methods=['POST'], url_path='add-subject')
     def add_subject(self, request):
         try:

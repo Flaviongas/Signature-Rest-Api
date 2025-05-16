@@ -33,6 +33,7 @@ class MajorSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'faculty', 'subjects',)
 
 
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     major_ids = serializers.PrimaryKeyRelatedField(
@@ -117,6 +118,98 @@ class UserSerializer(serializers.ModelSerializer):
         #     raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
         
         return value
+
+class DeleteStudentSerializer(serializers.Serializer):
+    student_id = serializers.IntegerField()
+
+    def validate(self, data):
+        try:
+            student = Student.objects.get(id=data['student_id'])
+        except Student.DoesNotExist:
+            raise serializers.ValidationError("Estudiante no encontrado")
+
+        self.student = student
+        return data
+
+    def save(self):
+        self.student.delete()
+
+class CreateStudentSerializer(serializers.Serializer):
+    first_name = serializers.CharField()
+    second_name = serializers.CharField(allow_blank=True, required=False)
+    last_name = serializers.CharField()
+    second_last_name = serializers.CharField(allow_blank=True, required=False)
+    rut = serializers.CharField()
+    dv = serializers.CharField(max_length=1)
+    major_id = serializers.IntegerField()
+
+    def validate(self, data):
+        # Check if student with this RUT already exists
+        if Student.objects.filter(rut=data['rut']).exists():
+            raise serializers.ValidationError("El estudiante ya existe")
+
+        # Check if major exists
+        try:
+            major = Major.objects.get(id=data['major_id'])
+        except Major.DoesNotExist:
+            raise serializers.ValidationError("Carrera no encontrada")
+
+        # Store major for use in save method
+        self.major = major
+        return data
+
+    def save(self):
+        # Create new student with validated data
+        Student.objects.create(
+            first_name=self.validated_data['first_name'],
+            second_name=self.validated_data.get('second_name'),
+            last_name=self.validated_data['last_name'],
+            second_last_name=self.validated_data.get('second_last_name'),
+            rut=self.validated_data['rut'],
+            dv=self.validated_data['dv'],
+            major=self.major
+        )
+
+
+class UpdateStudentSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    first_name = serializers.CharField()
+    second_name = serializers.CharField()
+    last_name = serializers.CharField()
+    second_last_name = serializers.CharField()
+    rut = serializers.CharField()
+    dv = serializers.CharField(max_length=1)
+    major_id = serializers.IntegerField()
+
+    def validate_id(self, value):
+        if not Student.objects.filter(id=value).exists():
+            raise serializers.ValidationError("Estudiante no encontrado.")
+        return value
+
+    def validate_rut(self, value):
+        student_id = self.initial_data.get('id')
+        if Student.objects.filter(rut=value).exclude(id=student_id).exists():
+            raise serializers.ValidationError("Ya existe otro estudiante con este RUT.")
+        return value
+
+    def validate_major_id(self, value):
+        if not Major.objects.filter(id=value).exists():
+            raise serializers.ValidationError("Carrera no encontrada.")
+        return value
+
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data['first_name']
+        instance.second_name = validated_data.get('second_name')
+        instance.last_name = validated_data['last_name']
+        instance.second_last_name = validated_data.get('second_last_name')
+        instance.rut = validated_data['rut']
+        instance.dv = validated_data['dv']
+        instance.major = Major.objects.get(id=validated_data['major_id'])
+        instance.save()
+        return instance
+
+    def save(self):
+        self.update(self.validated_data)        
 
 class AddSubjectSerializer(serializers.Serializer):
     student_id = serializers.IntegerField()
