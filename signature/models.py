@@ -22,7 +22,7 @@ class Student(models.Model):
     major = models.ForeignKey(Major, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return f"{self.first_name}"
 
 
 class Subject(models.Model):
