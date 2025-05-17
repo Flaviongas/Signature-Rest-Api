@@ -6,7 +6,7 @@ from Asistencia.settings import EMAIL_ADDRESS, EMAIL_APP_PASSWORD
 from signature.utils import generate_email_text
 from .models import Major, Subject, Student
 from rest_framework import viewsets, status
-from .serializers import MajorSerializer, SubjectSerializer, StudentSerializer, UserSerializer, AddSubjectSerializer, RemoveSubjectSerializer, UpdateSubjectSerializer, DeleteStudentSerializer, CreateStudentSerializer, UpdateStudentSerializer
+from .serializers import MajorSerializer, SubjectSerializer, StudentSerializer, UserSerializer, SubjectEnrollmentSerializer, UnenrollSubjectSerializer, DeleteStudentSerializer, CreateStudentSerializer, UpdateStudentSerializer
 from rest_framework.decorators import action, api_view, permission_classes, authentication_classes
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -88,7 +88,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['POST'], url_path='add-subject')
     def add_subject(self, request):
         try:
-            serializer = AddSubjectSerializer(data=request.data)
+            serializer = SubjectEnrollmentSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response({'status': 'subject added'}, status=status.HTTP_200_OK)
@@ -98,10 +98,10 @@ class StudentViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
-    @action(detail=False, methods=['DELETE'], url_path='delete-subject')
-    def remove_subject(self, request):
+    @action(detail=False, methods=['DELETE'], url_path='remove-subject')
+    def unregister_subject(self, request):
         try:
-            serializer = RemoveSubjectSerializer(data=request.data)
+            serializer = UnenrollSubjectSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response({'status': 'subject removed'}, status=status.HTTP_200_OK)
@@ -112,19 +112,7 @@ class StudentViewSet(viewsets.ModelViewSet):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
 
-    @action(detail=False, methods=['PUT'], url_path='update-subject')
-    def update_subject(self, request):
-     
-        try:
-            serializer = UpdateSubjectSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response({'status': 'subject updated'}, status=status.HTTP_200_OK)  
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
         
         
 class MajorViewSet(viewsets.ModelViewSet):

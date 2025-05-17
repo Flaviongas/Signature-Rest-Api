@@ -211,7 +211,7 @@ class UpdateStudentSerializer(serializers.Serializer):
     def save(self):
         self.update(self.validated_data)        
 
-class AddSubjectSerializer(serializers.Serializer):
+class SubjectEnrollmentSerializer(serializers.Serializer):
     student_id = serializers.IntegerField()
     subject_id = serializers.IntegerField()
 
@@ -227,7 +227,7 @@ class AddSubjectSerializer(serializers.Serializer):
         except Subject.DoesNotExist:
             raise serializers.ValidationError("Materia no encontrada")
 
-        if student.major != subject.major:
+        if not subject.major.filter(id=student.major.id).exists():
             raise serializers.ValidationError("La materia no pertenece a la carrera del estudiante")
 
         self.student = student
@@ -237,7 +237,7 @@ class AddSubjectSerializer(serializers.Serializer):
     def save(self):
         self.student.subjects.add(self.subject)
         
-class RemoveSubjectSerializer(serializers.Serializer):
+class UnenrollSubjectSerializer(serializers.Serializer):
     student_id = serializers.IntegerField()
     subject_id = serializers.IntegerField()
 
@@ -251,8 +251,8 @@ class RemoveSubjectSerializer(serializers.Serializer):
             subject = Subject.objects.get(id=data['subject_id'])
         except Subject.DoesNotExist:
             raise serializers.ValidationError("Materia no encontrada")
-        
-        if student.major != subject.major:
+
+        if not subject.major.filter(id=student.major.id).exists():
             raise serializers.ValidationError("La materia no pertenece a la carrera del estudiante")
         
         self.student = student
@@ -261,31 +261,3 @@ class RemoveSubjectSerializer(serializers.Serializer):
     
     def save(self):
         self.student.subjects.remove(self.subject)
-class UpdateSubjectSerializer(serializers.Serializer):
-    student_id = serializers.IntegerField()
-    current_subject_id = serializers.IntegerField()
-    new_subject_id = serializers.IntegerField()
-    def validate(self, data):
-        try:
-            student = Student.objects.get(id=data['student_id'])
-
-        except Student.DoesNotExist:
-            raise serializers.ValidationError("Estudiante no encontrado")
-        try:
-            current_subject = Subject.objects.get(id=data['current_subject_id'])
-            new_subject = Subject.objects.get(id=data['new_subject_id'])
-        except Subject.DoesNotExist:
-            raise serializers.ValidationError("Materia no encontrada")
-        
-        if student.major != new_subject.major:
-            raise serializers.ValidationError("La nueva materia no pertenece a la carrera del estudiante")
-
-        self.student = student
-        self.current_subject = current_subject
-        self.new_subject = new_subject
-
-        return data
-    
-    def save(self):
-        self.student.subjects.remove(self.current_subject)
-        self.student.subjects.add(self.new_subject)
