@@ -17,7 +17,7 @@ pytest test/test_users.py
 ```
 
 ## Estructura de la carpeta tests/
-
+```
 tests/
 │
 ├── test_accounts.py
@@ -25,7 +25,7 @@ tests/
 ├── test_students.py
 ├── test_subjects.py
 ├── test_users.py
-
+```
 ## Convenciones para los nombres de funciones
 
 - Se usa el prefijo **test\_**
