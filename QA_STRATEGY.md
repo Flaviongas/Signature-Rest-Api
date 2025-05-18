@@ -1,5 +1,24 @@
 # Guía de Tests - Backend (pytest + Django REST)
 
+## Roles y responsabilidades de QA en el Scrum Team
+
+- **QA Lead (Diomedes Mora):**
+
+  - Diseñar y mantener la estrategia de pruebas.
+  - Definir Definition of Done y objetivos de calidad.
+  - Supervisar el CI/CD y coordinar esfuerzos de QA.
+  - Evaluar métricas y liderar retrospectivas de calidad.
+
+- **QA Analyst (Flavio):**
+
+  - Definir casos de prueba funcionales y regresión.
+  - Mantener backlog de pruebas y checklist de validaciones.
+  - Validar entregables contra criterios de aceptación.
+
+- **QA Automation Engineer (Manuel):**
+  - Desarrollar y mantener pruebas automatizadas (Pytest, Jest).
+  - Generar reportes de cobertura y alertas de calidad.
+
 ## Configuración
 
 - Todos los tests están implementados con `pytest`.
@@ -29,7 +48,7 @@ tests/
 ## Convenciones para los nombres de funciones
 
 - Se usa el prefijo **test\_**
-- Formato: **test*<funcionalidad>*<caso>**
+- Formato: **test<funcionalidad><caso>**
 - Ejemplos:
   - test_user_creation # prueba creación exitosa de usuario
   - test_create_user_missing_password # prueba creación sin password
