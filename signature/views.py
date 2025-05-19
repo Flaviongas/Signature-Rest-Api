@@ -65,12 +65,12 @@ class StudentViewSet(viewsets.ModelViewSet):
             serializer = DeleteStudentSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
-                return Response({'status': 'Estudiante borrado'}, status=status.HTTP_200_OK)
+                return Response({'status': 'Estudiante borrado'}, status=status.HTTP_204_NO_CONTENT)
             else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
             
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
         
     @action(detail=False, methods=['PUT'], url_path='update-student')
     def update_student(self, request):

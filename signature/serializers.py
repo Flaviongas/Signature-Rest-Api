@@ -1,5 +1,6 @@
-from rest_framework import serializers
+from django.core.validators import RegexValidator
 from .models import Major, Subject, Student
+from rest_framework import serializers
 import re 
 
 # INFO: In models, the many to many relationship is defined in the Subject model.  So, the SubjectSerializer is defined first.
@@ -7,6 +8,22 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()  # PermissionUser
 
+name_regex = RegexValidator(
+        regex=r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$',
+        message="Solo se permiten letras y espacios"
+    )
+    
+    # Validación para RUT (solo números)
+rut_regex = RegexValidator(
+    regex=r'^\d+$',
+    message="El RUT solo debe contener números"
+)
+
+# Validación para DV (solo 1 dígito)
+dv_regex = RegexValidator(
+    regex=r'^[0-9kK]{1}$',  # Considerando posible 'K' como válido para Chile
+    message="Digito verificador inválido"
+)
 
 class StudentSerializer(serializers.ModelSerializer):
     subjects = serializers.PrimaryKeyRelatedField(
@@ -135,31 +152,44 @@ class DeleteStudentSerializer(serializers.Serializer):
         self.student.delete()
 
 class CreateStudentSerializer(serializers.Serializer):
-    first_name = serializers.CharField()
-    second_name = serializers.CharField(allow_blank=True, required=False)
-    last_name = serializers.CharField()
-    second_last_name = serializers.CharField(allow_blank=True, required=False)
-    rut = serializers.CharField()
-    dv = serializers.CharField(max_length=1)
+    first_name = serializers.CharField(validators=[name_regex])
+    second_name = serializers.CharField(
+        allow_blank=True,
+        required=False,
+        validators=[name_regex]
+    )
+    last_name = serializers.CharField(validators=[name_regex])
+    second_last_name = serializers.CharField(
+        allow_blank=True,
+        required=False,
+        validators=[name_regex]
+    )
+    rut = serializers.CharField(
+        validators=[rut_regex],
+        max_length=9
+    )
+    dv = serializers.CharField(
+        max_length=1,
+        validators=[dv_regex]
+    )
     major_id = serializers.IntegerField()
 
     def validate(self, data):
-        # Check if student with this RUT already exists
-        if Student.objects.filter(rut=data['rut']).exists():
+        # Validación RUT + DV único (mejorada con un solo query)
+        if Student.objects.filter(rut=data['rut'], dv=data['dv'].upper()).exists():
             raise serializers.ValidationError("El estudiante ya existe")
 
-        # Check if major exists
+        # Validación de existencia de carrera
         try:
             major = Major.objects.get(id=data['major_id'])
         except Major.DoesNotExist:
             raise serializers.ValidationError("Carrera no encontrada")
 
-        # Store major for use in save method
+        data['dv'] = data['dv'].upper()
         self.major = major
         return data
 
     def save(self):
-        # Create new student with validated data
         Student.objects.create(
             first_name=self.validated_data['first_name'],
             second_name=self.validated_data.get('second_name'),
@@ -173,12 +203,26 @@ class CreateStudentSerializer(serializers.Serializer):
 
 class UpdateStudentSerializer(serializers.Serializer):
     id = serializers.IntegerField()
-    first_name = serializers.CharField()
-    second_name = serializers.CharField()
-    last_name = serializers.CharField()
-    second_last_name = serializers.CharField()
-    rut = serializers.CharField()
-    dv = serializers.CharField(max_length=1)
+    first_name = serializers.CharField(validators=[name_regex])
+    second_name = serializers.CharField(
+        allow_blank=True,
+        required=False,
+        validators=[name_regex]
+    )
+    last_name = serializers.CharField(validators=[name_regex])
+    second_last_name = serializers.CharField(
+        allow_blank=True,
+        required=False,
+        validators=[name_regex]
+    )
+    rut = serializers.CharField(
+        validators=[rut_regex],
+        max_length=9
+    )
+    dv = serializers.CharField(
+        max_length=1,
+        validators=[dv_regex]
+    )
     major_id = serializers.IntegerField()
 
     def validate_id(self, value):
@@ -192,24 +236,32 @@ class UpdateStudentSerializer(serializers.Serializer):
             raise serializers.ValidationError("Ya existe otro estudiante con este RUT.")
         return value
 
+    def validate_dv(self, value):
+        # Normalizar DV a mayúsculas
+        return value.upper()
+
     def validate_major_id(self, value):
-        if not Major.objects.filter(id=value).exists():
+        try:
+            self.major = Major.objects.get(id=value)  # Guardamos en instancia para reutilizar
+        except Major.DoesNotExist:
             raise serializers.ValidationError("Carrera no encontrada.")
         return value
 
     def update(self, instance, validated_data):
         instance.first_name = validated_data['first_name']
-        instance.second_name = validated_data.get('second_name')
+        instance.second_name = validated_data.get('second_name', instance.second_name)
         instance.last_name = validated_data['last_name']
-        instance.second_last_name = validated_data.get('second_last_name')
+        instance.second_last_name = validated_data.get('second_last_name', instance.second_last_name)
         instance.rut = validated_data['rut']
         instance.dv = validated_data['dv']
-        instance.major = Major.objects.get(id=validated_data['major_id'])
+        instance.major = self.major  # Usamos el objeto ya validado
         instance.save()
         return instance
 
     def save(self):
-        self.update(self.validated_data)        
+        # Obtener instancia del estudiante
+        instance = Student.objects.get(id=self.validated_data['id'])
+        return self.update(instance, self.validated_data)  
 
 class SubjectEnrollmentSerializer(serializers.Serializer):
     student_id = serializers.IntegerField()
