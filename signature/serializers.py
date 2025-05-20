@@ -68,8 +68,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         majors = validated_data.pop('majors', [])
-        print(majors)
-        password = validated_data.pop('password')
+        password = validated_data.pop('password', None)
         
         if not password:
             raise serializers.ValidationError({"password": "La contraseña es obligatoria."})

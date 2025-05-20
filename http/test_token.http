@@ -1,8 +1,3 @@
-POST http://localhost:8000/test_token
+GET http://localhost:8000/userExists/
 Content-Type: application/json
-Authorization: Token 91e30c9ee42ac2c6dea8adf3e66c78c0048f21ef
-
-{
-"username": "flavio02",
-"password": "signature"
-}
+Authorization: Token 5f576384a4af9d36bda6f60fd9e3e9238bd79fa3 

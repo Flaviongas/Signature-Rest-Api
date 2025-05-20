@@ -6,7 +6,7 @@ import json
 class Migration(migrations.Migration):
     def insert_majors(apps, schema_editor):
         Major = apps.get_model('signature', 'Major')
-        with open('signature/migrations/majors.json', 'r') as file:
+        with open('signature/migrations/majors.json', 'r', encoding='utf-8') as file:
             majors = json.load(file)
             for major in majors:
                 Major.objects.create(

@@ -210,10 +210,12 @@ def signup(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
+# Podriamos usar esta ruta para deslogear al usuario en caso de que se borre su cuenta
+@api_view(['GET'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def test_token(request):
+def userExists(request):
+    print(request)
     return Response({"passed for {}".format(request.user.username)})
 
 
@@ -235,6 +237,9 @@ def sendEmail(request):
     recipient = request.POST['email']
     subject = request.POST['subject']
     excel = request.FILES['file']
+    print(f"filename: {filename}")
+    print(f"recipient: {recipient}")
+    print(f"subject: {subject}")
 
     match = re.match(r"[^@]+@[^@]+\.[^@]+", recipient)
     if match == None:

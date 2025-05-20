@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     def insert_students(apps, schema_editor):
         Student = apps.get_model('signature', 'Student')
-        with open('signature/migrations/students.json', 'r') as file:
+        with open('signature/migrations/students.json', 'r', encoding='utf-8') as file:
             students = json.load(file)
             for student in students:
 

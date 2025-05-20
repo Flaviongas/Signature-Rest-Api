@@ -1,6 +1,6 @@
 from rest_framework import routers
 from django.urls import path, include
-from .views import MajorViewSet, SubjectViewSet, StudentViewSet, UserViewSet, login, signup, test_token, isAdmin,sendEmail
+from .views import MajorViewSet, SubjectViewSet, StudentViewSet, UserViewSet, login, signup, userExists, isAdmin,sendEmail
 
 router = routers.DefaultRouter()
 router.register('majors', MajorViewSet, basename='majors')
@@ -12,7 +12,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('login/', login, name='login'),
     path('signup/', signup, name='signup'),
-    path('test_token/', test_token, name='test_token'),
+    path('userExists/', userExists, name='userExists'),
     path('isAdmin/', isAdmin, name='isAdmin'),
     path('sendEmail/', sendEmail, name='sendEmail'),
 ]
