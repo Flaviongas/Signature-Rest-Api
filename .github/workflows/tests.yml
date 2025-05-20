@@ -2,11 +2,13 @@ name: CI Pipeline
 
 on:
   push:
-  #   branches:
-  #     - develop
-  # pull_request:
-  #   branches:
-  #     - develop
+    branches:
+      - develop
+      - main
+  pull_request:
+    branches:
+      - develop
+      - main
 
 jobs:
   test:
@@ -35,10 +37,27 @@ jobs:
 
       - name: Run tests
         run: |
+          pytest -k "not test_email_token" 
+
+      - name: Cyclomatic Complexity
+        run: |
+          radon cc Asistencia/
+
+      - name: Maintainability Index
+        run: |
+          radon mi Asistencia/
+
+      - name: Halstead Metrics
+        run: |
+          radon hal Asistencia/
+
+
+      - name: Run email test
+        run: |
           python manage.py runserver & echo $! > server.pid
           sleep 5
 
-          pytest
+          pytest tests/test_email_token.py
           TEST_EXIT_CODE=$?
 
           kill $(cat server.pid)
