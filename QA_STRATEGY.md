@@ -9,13 +9,13 @@
   - Supervisar el CI/CD y coordinar esfuerzos de QA.
   - Evaluar métricas y liderar retrospectivas de calidad.
 
-- **QA Analyst (Flavio):**
+- **QA Analyst (Manuel):**
 
   - Definir casos de prueba funcionales y regresión.
   - Mantener backlog de pruebas y checklist de validaciones.
   - Validar entregables contra criterios de aceptación.
 
-- **QA Automation Engineer (Manuel):**
+- **QA Automation Engineer (Flavio):**
   - Desarrollar y mantener pruebas automatizadas (Pytest, Jest).
   - Generar reportes de cobertura y alertas de calidad.
 
@@ -76,27 +76,27 @@ tests/
 
 #### Eliminación de usuario (DELETE)
 
-- [ ] Eliminación exitosa de un usuario existente
-- [ ] Intento de eliminación de un usuario inexistente (debe retornar 404)
+- [x] Eliminación exitosa de un usuario existente
+- [x] Intento de eliminación de un usuario inexistente (debe retornar 404)
 
 ### Para test_students.py se deben contemplar al menos los siguientes casos:
 
 #### Consulta de estudiantes (GET)
 
-- [ ] Obtener el listado completo de estudiantes
-- [ ] Obtener estudiantes filtrados por carrera (`major`)
+- [x] Obtener el listado completo de estudiantes
+- [x] Obtener estudiantes filtrados por carrera (`major`)
 
 #### Creación de estudiante (POST)
 
-- [ ] Creación exitosa con todos los campos válidos
-- [ ] Creación fallida si falta algún campo obligatorio (ej: `dv`, `rut`, `major`, etc.)
-- [ ] Creación fallida si `rut` contiene caracteres no numéricos
-- [ ] Creación fallida si `dv` contiene caracteres no numéricos
-- [ ] Creación fallida si el estudiante no tiene al menos una carrera asignada (`major`)
-- [ ] Creación fallida si `first_name`, `last_name`, `second_name`, `second_last_name` u otros campos contienen caracteres especiales no permitidos (`*/.><` etc.)
-- [ ] No debe permitirse la creación de estudiantes duplicados con el mismo `rut` y `dv`
+- [x] Creación exitosa con todos los campos válidos
+- [x] Creación fallida si falta algún campo obligatorio (ej: `dv`, `rut`, `major`, etc.)
+- [x] Creación fallida si `rut` contiene caracteres no numéricos
+- [x] Creación fallida si `dv` contiene caracteres no numéricos
+- [x] Creación fallida si el estudiante no tiene al menos una carrera asignada (`major`)
+- [x] Creación fallida si `first_name`, `last_name`, `second_name`, `second_last_name` u otros campos contienen caracteres especiales no permitidos (`*/.><` etc.)
+- [x] No debe permitirse la creación de estudiantes duplicados con el mismo `rut` y `dv`
 
 #### Eliminación de estudiante (DELETE)
 
-- [ ] Eliminación exitosa de un estudiante existente
-- [ ] Intento de eliminación de un estudiante inexistente (debe retornar 404)
+- [x] Eliminación exitosa de un estudiante existente
+- [x] Intento de eliminación de un estudiante inexistente (debe retornar 404)
