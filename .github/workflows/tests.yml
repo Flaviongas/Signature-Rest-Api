@@ -43,19 +43,19 @@ jobs:
 
       - name: Cyclomatic Complexity
         run: |
-          radon cc Asistencia/
+          radon cc signature/ -s
 
       - name: Maintainability Index
         run: |
-          radon mi Asistencia/
+          radon mi signature/ -s
 
       - name: General Metrics
         run: |
-          radon raw Asistencia/
+          radon raw signature/ -s
 
       - name: Halstead Metrics
         run: |
-          radon hal Asistencia/
+          radon hal signature/
 
 
       - name: Run email test
