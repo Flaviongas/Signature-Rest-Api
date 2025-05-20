@@ -49,6 +49,10 @@ jobs:
         run: |
           radon mi Asistencia/
 
+      - name: General Metrics
+        run: |
+          radon raw Asistencia/
+
       - name: Halstead Metrics
         run: |
           radon hal Asistencia/
