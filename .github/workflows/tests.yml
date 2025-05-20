@@ -37,8 +37,8 @@ jobs:
 
       - name: Make envfile
         run: |
-          echo "${{ secrets.EMAIL_ADDRESS }}" > .env
-          echo "${{ secrets.EMAIL_APP_PASSWORD }}" >> .env
+          echo "${{ vars.EMAIL_ADDRESS || secrets.EMAIL_ADDRESS || env.EMAIL_ADDRESS }}" > .env
+          echo "${{ vars.EMAIL_APP_PASSWORD || secrets.EMAIL_APP_PASSWORD || env.EMAIL_APP_PASSWORD }}" >> .env
 
       - name: Run tests
         run: |
