@@ -9,4 +9,4 @@ shortuuid
 pytest
 dotenv
 py3-validate-email
-
+pytest-django

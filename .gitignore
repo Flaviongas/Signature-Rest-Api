@@ -8,3 +8,5 @@ __pycache__/
 .env
 logs/*.log
 logs/
+pyproject.toml
+uv.lock

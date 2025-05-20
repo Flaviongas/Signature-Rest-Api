@@ -6,7 +6,7 @@ def checkUser(token):
         "Authorization": f"Token {token}",
         "Content-Type": "application/json"
     }
-    
+
     response = requests.get(url, headers=headers)
     return response
 
