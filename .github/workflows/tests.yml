@@ -56,8 +56,8 @@ jobs:
 
       - name: Run email test
         run: |
-          echo "EMAIL_ADDRESS={{secrets.EMAIL_ADDRESS}}" > .env
-          echo "EMAIL_APP_PASSWORD={{secrets.EMAIL_APP_PASSWORD}}" >> .env
+          echo "EMAIL_ADDRESS='{{secrets.EMAIL_ADDRESS}}'" > .env
+          echo "EMAIL_APP_PASSWORD='{{secrets.EMAIL_APP_PASSWORD}}'" >> .env
           python manage.py runserver & echo $! > server.pid
           sleep 5
           pytest tests/test_email_token.py
