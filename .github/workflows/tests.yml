@@ -15,6 +15,7 @@ jobs:
     timeout-minutes: 2
     name: Run Tests
     runs-on: ${{ matrix.os }}
+    environment: signature
 
     strategy:
       matrix:
@@ -35,14 +36,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Make envfile
-        run: |
-          echo "${{ vars.EMAIL_ADDRESS || secrets.EMAIL_ADDRESS || env.EMAIL_ADDRESS }}" > .env
-          echo "${{ vars.EMAIL_APP_PASSWORD || secrets.EMAIL_APP_PASSWORD || env.EMAIL_APP_PASSWORD }}" >> .env
 
       - name: Run tests
         run: |
-          pytest -k "not test_email_token" 
+          pytest . -k "not test_email_token" 
 
       - name: Cyclomatic Complexity
         run: |
@@ -59,9 +56,10 @@ jobs:
 
       - name: Run email test
         run: |
+          echo "EMAIL_ADDRESS={{secrets.EMAIL_ADDRESS}}" > .env
+          echo "EMAIL_APP_PASSWORD={{secrets.EMAIL_APP_PASSWORD}}" >> .env
           python manage.py runserver & echo $! > server.pid
           sleep 5
-
           pytest tests/test_email_token.py
           TEST_EXIT_CODE=$?
 

@@ -27,5 +27,5 @@ six
 sqlparse
 tzdata
 urllib3
-validate_email
+py3-validate-email
 radon
