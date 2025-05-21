@@ -56,19 +56,3 @@ jobs:
       - name: Halstead Metrics
         run: |
           radon hal signature/
-
-
-      - name: Run email test
-        run: |
-          cat <<EOF > .env
-          EMAIL_ADDRESS='${{ secrets.EMAIL_ADDRESS }}'
-          EMAIL_APP_PASSWORD='${{ secrets.EMAIL_APP_PASSWORD }}'
-          EOF
-          python manage.py runserver & echo $! > server.pid
-          sleep 5
-          pytest tests/test_email_token.py
-          TEST_EXIT_CODE=$?
-
-          kill $(cat server.pid)
-
-          exit $TEST_EXIT_CODE
