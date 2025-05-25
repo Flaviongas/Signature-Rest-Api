@@ -7,6 +7,12 @@ from django.contrib.auth.models import AbstractUser, UserManager
 class MajorCode(models.Model):
     # Las carreras tienen más de un código por alguna razón, culpen a la U
     code = models.CharField(max_length=15)
+    major = models.ForeignKey(
+        'Major',
+        on_delete=models.CASCADE,
+        related_name='codes',
+        null=True,
+    )
 
     def __str__(self):
         return self.code
@@ -15,8 +21,6 @@ class MajorCode(models.Model):
 class Major(models.Model):
     name = models.CharField(max_length=50)
     faculty = models.CharField(max_length=50)
-    code = models.ForeignKey(
-        MajorCode, on_delete=models.CASCADE, related_name='majors', null=True, default=None)
 
     def __str__(self):
         return self.name
