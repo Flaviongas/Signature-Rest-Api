@@ -1,0 +1,84 @@
+PERIODO,UWMMAHI_PROGRAM,UWMMAHI_PROGRAMA,UWMMAHI_CAMP_CODE,UWMMAHI_CAMPUS,UWMMAHI_COLL_CODE,UWMMAHI_FACULTAD
+202410,ARQUI_111,ARQUITECTURA,TE,Temuco,FA,Fac. Arquitec. y Construcción
+202420,ARQUI_111,ARQUITECTURA,TE,Temuco,FA,Fac. Arquitec. y Construcción
+202431,ADMPT_211,Administración Pública,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202432,ADMPT_211,Administración Pública,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202433,ADMPT_211,Administración Pública,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202410,AUDIT_111,Aud. e Ing En Control de Gest.,TE,Temuco,FN,Fac. Administración y Negocios
+202410,AUDIT_211,Aud. e Ing En Control de Gest.,TE,Temuco,FN,Fac. Administración y Negocios
+202420,AUDIT_111,Aud. e Ing En Control de Gest.,TE,Temuco,FN,Fac. Administración y Negocios
+202420,AUDIT_211,Aud. e Ing En Control de Gest.,TE,Temuco,FN,Fac. Administración y Negocios
+202410,DEREC_111,Derecho,TE,Temuco,FD,Fac. Derecho
+202410,DEREC_211,Derecho,TE,Temuco,FD,Fac. Derecho
+202420,DEREC_111,Derecho,TE,Temuco,FD,Fac. Derecho
+202420,DEREC_211,Derecho,TE,Temuco,FD,Fac. Derecho
+202431,DERET_211,Derecho,TE,Temuco,FD,Fac. Derecho
+202432,DERET_211,Derecho,TE,Temuco,FD,Fac. Derecho
+202433,DERET_211,Derecho,TE,Temuco,FD,Fac. Derecho
+202410,ENFER_111,Enfermería,TE,Temuco,FS,Fac. Cs de la Salud
+202420,ENFER_111,Enfermería,TE,Temuco,FS,Fac. Cs de la Salud
+202410,FONOA_111,Fonoaudiología,TE,Temuco,FS,Fac. Cs de la Salud
+202420,FONOA_111,Fonoaudiología,TE,Temuco,FS,Fac. Cs de la Salud
+202410,IECDG_111,Ing. en Control de Gestión,TE,Temuco,FN,Fac. Administración y Negocios
+202420,IECDG_111,Ing. en Control de Gestión,TE,Temuco,FN,Fac. Administración y Negocios
+202410,ICIND_111,Ingeniería Civil Industrial,TE,Temuco,FI,Fac. Ingeniería
+202420,ICIND_111,Ingeniería Civil Industrial,TE,Temuco,FI,Fac. Ingeniería
+202431,ICINT_211,Ingeniería Civil Industrial,TE,Temuco,FI,Fac. Ingeniería
+202432,ICINT_211,Ingeniería Civil Industrial,TE,Temuco,FI,Fac. Ingeniería
+202433,ICINT_211,Ingeniería Civil Industrial,TE,Temuco,FI,Fac. Ingeniería
+202410,ICINF_111,Ingeniería Civil Informática,TE,Temuco,FI,Fac. Ingeniería
+202420,ICINF_111,Ingeniería Civil Informática,TE,Temuco,FI,Fac. Ingeniería
+202410,INCOM_111,Ingeniería Comercial,TE,Temuco,FN,Fac. Administración y Negocios
+202410,INCOM_211,Ingeniería Comercial,TE,Temuco,FN,Fac. Administración y Negocios
+202420,INCOM_111,Ingeniería Comercial,TE,Temuco,FN,Fac. Administración y Negocios
+202420,INCOM_211,Ingeniería Comercial,TE,Temuco,FN,Fac. Administración y Negocios
+202431,INCOT_211,Ingeniería Comercial,TE,Temuco,FN,Fac. Administración y Negocios
+202432,INCOT_211,Ingeniería Comercial,TE,Temuco,FN,Fac. Administración y Negocios
+202433,INCOT_211,Ingeniería Comercial,TE,Temuco,FN,Fac. Administración y Negocios
+202433,INCOM_211,Ingeniería Comercial,TE,Temuco,FN,Fac. Administración y Negocios
+202410,IADMI_111,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202410,IADMI_231,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202410,IADMI_211,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202420,IADMI_111,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202420,IADMI_211,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202420,IADMI_131,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202431,IADMT_211,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202432,IADMT_211,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202432,IADMI_231,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202433,IADMT_211,Ingeniería en Administración,TE,Temuco,FN,Fac. Administración y Negocios
+202410,ICONS_111,Ingeniería en Construcción,TE,Temuco,FA,Fac. Arquitec. y Construcción
+202420,ICONS_111,Ingeniería en Construcción,TE,Temuco,FA,Fac. Arquitec. y Construcción
+202410,KINES_111,Kinesiología,TE,Temuco,FS,Fac. Cs de la Salud
+202420,KINES_111,Kinesiología,TE,Temuco,FS,Fac. Cs de la Salud
+202410,NUTRI_111,Nutrición y Dietética,TE,Temuco,FS,Fac. Cs de la Salud
+202420,NUTRI_111,Nutrición y Dietética,TE,Temuco,FS,Fac. Cs de la Salud
+202410,ODONT_111,Odontología,TE,Temuco,FS,Fac. Cs de la Salud
+202420,ODONT_111,Odontología,TE,Temuco,FS,Fac. Cs de la Salud
+202410,PPARV_111,Ped. en Educación Parvularia,TE,Temuco,FE,Fac. Educación
+202420,PPARV_111,Ped. en Educación Parvularia,TE,Temuco,FE,Fac. Educación
+202410,PEDIF_111,Pedagogía en Ed. Diferencial,TE,Temuco,FE,Fac. Educación
+202420,PEDIF_111,Pedagogía en Ed. Diferencial,TE,Temuco,FE,Fac. Educación
+202410,PBASI_111,Pedagogía en Educación Básica,TE,Temuco,FE,Fac. Educación
+202420,PBASI_111,Pedagogía en Educación Básica,TE,Temuco,FE,Fac. Educación
+202410,PEFIS_111,Pedagogía en Educación Física,TE,Temuco,FE,Fac. Educación
+202420,PEFIS_111,Pedagogía en Educación Física,TE,Temuco,FE,Fac. Educación
+202410,PINGL_111,Pedagogía en Inglés,TE,Temuco,FE,Fac. Educación
+202420,PINGL_111,Pedagogía en Inglés,TE,Temuco,FE,Fac. Educación
+202410,PERIO_111,Periodismo,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202420,PERIO_111,Periodismo,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202410,PEINT_121,Prog. Esp. de Intercambio Int.,TE,Temuco,FN,Fac. Administración y Negocios
+202420,PEINT_121,Prog. Esp. de Intercambio Int.,TE,Temuco,FN,Fac. Administración y Negocios
+202420,MOVNA_121,Programa Movilidad Nacional,TE,Temuco,,No Asignado
+202410,PSICO_111,Psicología,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202420,PSICO_111,Psicología,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202431,PSICT_211,Psicología,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202432,PSICT_211,Psicología,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202433,PSICT_211,Psicología,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202410,QYFAR_111,Química y Farmacia,TE,Temuco,FS,Fac. Cs de la Salud
+202420,QYFAR_111,Química y Farmacia,TE,Temuco,FS,Fac. Cs de la Salud
+202410,RPUBL_111,Relaciones Públicas,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202420,RPUBL_111,Relaciones Públicas,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202410,TOCUP_111,Terapia Ocupacional,TE,Temuco,FS,Fac. Cs de la Salud
+202420,TOCUP_111,Terapia Ocupacional,TE,Temuco,FS,Fac. Cs de la Salud
+202410,TRSOC_111,Trabajo Social,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
+202420,TRSOC_111,Trabajo Social,TE,Temuco,FH,Fac. Cs Sociales y Humanidades
