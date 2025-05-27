@@ -8,7 +8,7 @@ pkgs.mkShell {
       ]))
   ];
 shellHook = ''
-    # source back/bin/activate
+    uv run manage.py runserver
   '';
 
   LD_LIBRARY_PATH="${pkgs.libGL}/lib/:${pkgs.stdenv.cc.cc.lib}/lib/:${pkgs.glib.out}/lib/";
