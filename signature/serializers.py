@@ -184,10 +184,50 @@ class CreateStudentSerializer(serializers.Serializer):
         except Major.DoesNotExist:
             raise serializers.ValidationError("Carrera no encontrada")
 
+        # Validación de RUT chileno
+        if not self.is_valid_rut(data['rut'], data['dv']):
+            raise serializers.ValidationError("El RUT no es válido")
+
         data['dv'] = data['dv'].upper()
         self.major = major
         return data
 
+    def is_valid_rut(self, rut, dv):
+        """
+        Valida un RUT chileno según el algoritmo estándar.
+        
+        Args:
+            rut: String con el número de RUT sin puntos ni guión
+            dv: String con el dígito verificador (puede ser 'k' o 'K')
+        
+        Returns:
+            Boolean indicando si el RUT es válido
+        """
+        # Normalizar el dígito verificador
+        dv = dv.upper()
+        
+        # Invertir el RUT para aplicar el algoritmo
+        rut_reversed = rut[::-1]
+        
+        # Aplicar la multiplicación por la secuencia 2,3,4,5,6,7,2,3,...
+        factors = [2, 3, 4, 5, 6, 7]
+        result = 0
+        
+        for i, digit in enumerate(rut_reversed):
+            result += int(digit) * factors[i % 6]
+        
+        # Calcular el dígito verificador esperado
+        remainder = result % 11
+        expected_dv = str(11 - remainder)
+        
+        # Ajustar casos especiales
+        if expected_dv == '11':
+            expected_dv = '0'
+        elif expected_dv == '10':
+            expected_dv = 'K'
+        
+        # Comparar con el dígito verificador proporcionado
+        return expected_dv == dv
     def save(self):
         Student.objects.create(
             first_name=self.validated_data['first_name'],
@@ -246,6 +286,51 @@ class UpdateStudentSerializer(serializers.Serializer):
             raise serializers.ValidationError("Carrera no encontrada.")
         return value
 
+    def validate(self, data):
+        # Validar que el RUT y DV correspondan a un RUT chileno válido
+        if 'rut' in data and 'dv' in data:
+            if not self.is_valid_rut(data['rut'], data['dv']):
+                raise serializers.ValidationError("El RUT no es válido")
+        
+        return data
+
+    def is_valid_rut(self, rut, dv):
+        """
+        Valida un RUT chileno según el algoritmo estándar.
+        
+        Args:
+            rut: String con el número de RUT sin puntos ni guión
+            dv: String con el dígito verificador (puede ser 'k' o 'K')
+        
+        Returns:
+            Boolean indicando si el RUT es válido
+        """
+        # Normalizar el dígito verificador
+        dv = dv.upper()
+        
+        # Invertir el RUT para aplicar el algoritmo
+        rut_reversed = rut[::-1]
+        
+        # Aplicar la multiplicación por la secuencia 2,3,4,5,6,7,2,3,...
+        factors = [2, 3, 4, 5, 6, 7]
+        result = 0
+        
+        for i, digit in enumerate(rut_reversed):
+            result += int(digit) * factors[i % 6]
+        
+        # Calcular el dígito verificador esperado
+        remainder = result % 11
+        expected_dv = str(11 - remainder)
+        
+        # Ajustar casos especiales
+        if expected_dv == '11':
+            expected_dv = '0'
+        elif expected_dv == '10':
+            expected_dv = 'K'
+        
+        # Comparar con el dígito verificador proporcionado
+        return expected_dv == dv
+    
     def update(self, instance, validated_data):
         instance.first_name = validated_data['first_name']
         instance.second_name = validated_data.get('second_name', instance.second_name)
