@@ -28,4 +28,3 @@ sqlparse
 tzdata
 urllib3
 py3-validate-email
-radon
