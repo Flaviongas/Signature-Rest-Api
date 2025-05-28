@@ -41,14 +41,14 @@ class StudentViewSet(viewsets.ModelViewSet):
                 return Response({'status': 'Estudiante creado'}, status=status.HTTP_201_CREATED)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            
+
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    
+
     @action(detail=False, methods=['POST'], url_path='get-student-bymajor')
     def get_student_bymajor(self, request):
         try:
-            
+
             major_id = request.data.get('major_id')
             if not major_id:
                 return Response({'error': 'La carrera no existe'}, status=status.HTTP_400_BAD_REQUEST)
@@ -56,7 +56,7 @@ class StudentViewSet(viewsets.ModelViewSet):
             students = Student.objects.filter(major_id=major_id)
             serializer = self.get_serializer(students, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        
+
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -69,10 +69,10 @@ class StudentViewSet(viewsets.ModelViewSet):
                 return Response({'status': 'Estudiante borrado'}, status=status.HTTP_204_NO_CONTENT)
             else:
                 return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
-            
+
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
-        
+
     @action(detail=False, methods=['PUT'], url_path='update-student')
     def update_student(self, request):
         try:
@@ -95,10 +95,10 @@ class StudentViewSet(viewsets.ModelViewSet):
                 return Response({'status': 'subject added'}, status=status.HTTP_200_OK)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            
+
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        
+
     @action(detail=False, methods=['DELETE'], url_path='remove-subject')
     def unregister_subject(self, request):
         try:
@@ -108,14 +108,11 @@ class StudentViewSet(viewsets.ModelViewSet):
                 return Response({'status': 'subject removed'}, status=status.HTTP_200_OK)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            
+
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        
 
 
-        
-        
 class MajorViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication, SessionAuthentication, )
     permission_classes = (IsAuthenticated, )
@@ -125,7 +122,8 @@ class MajorViewSet(viewsets.ModelViewSet):
     def get_object(self):
         instance = super().get_object()
 
-        self.request.META['RESOURCE_NAME'] = getattr(instance, 'name', str(instance))
+        self.request.META['RESOURCE_NAME'] = getattr(
+            instance, 'name', str(instance))
         return instance
 
     def perform_create(self, serializer):
@@ -138,8 +136,7 @@ class MajorViewSet(viewsets.ModelViewSet):
         majors = [{"id": major.id, "name": major.name}
                   for major in queryset]
         return Response(majors)
-    
-        
+
 
 class SubjectViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication, SessionAuthentication, )
@@ -150,7 +147,8 @@ class SubjectViewSet(viewsets.ModelViewSet):
     def get_object(self):
         instance = super().get_object()
 
-        self.request.META['RESOURCE_NAME'] = getattr(instance, 'name', str(instance))
+        self.request.META['RESOURCE_NAME'] = getattr(
+            instance, 'name', str(instance))
         return instance
 
     def perform_create(self, serializer):
@@ -163,23 +161,22 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    
+
     def perform_create(self, serializer):
         user = serializer.save()
         Token.objects.get_or_create(user=user)
-        
-         # Guardar el nombre del nuevo recurso
+
+        # Guardar el nombre del nuevo recurso
         self.request._resource_name = user.username
 
     def get_object(self):
         instance = super().get_object()
 
         # Guardar el nombre en el request (solo si no existe aún)
-        self.request.META['RESOURCE_NAME'] = getattr(instance, 'name', str(instance))
+        self.request.META['RESOURCE_NAME'] = getattr(
+            instance, 'name', str(instance))
         return instance
 
-       
-        
 
 @api_view(['POST'])
 def login(request):
@@ -200,7 +197,7 @@ def signup(request):
         serializer.save()
         user = User.objects.get(username=serializer.data['username'])
         user.set_password(request.data['password'])
-        if 'majors' in request.data:     
+        if 'majors' in request.data:
             majors = request.data['majors']
             for major in majors:
                 major_obj = Major.objects.get(id=major)
@@ -233,16 +230,21 @@ def isAdmin(request):
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def uploadUserCSV(request):
+def uploadStudentCSV(request):
     print("Uploading CSV file")
     csv = request.FILES['file']
     df = pd.read_csv(csv)
     users = df['Usuario'].drop_duplicates().tolist()
+    if len(users) > 2000:
+        return Response({"error": "El archivo CSV no puede tener más de 2000 usuarios"}, status=status.HTTP_400_BAD_REQUEST)
     for user in users:
         print(f"Processing user: {user}")
-        password = df[df['Usuario'] == user]['Contraseña'].drop_duplicates().tolist()
-        majors = df[df['Usuario'] == user]['Nombre_Carrera'].drop_duplicates().tolist()
-        major_codes = df[df['Usuario'] == user]['Codigo_Carrera'].drop_duplicates().tolist()
+        password = df[df['Usuario'] ==
+                      user]['Contraseña'].drop_duplicates().tolist()
+        majors = df[df['Usuario'] ==
+                    user]['Nombre_Carrera'].drop_duplicates().tolist()
+        major_codes = df[df['Usuario'] ==
+                         user]['Codigo_Carrera'].drop_duplicates().tolist()
 
         found_majors = []
 
@@ -264,7 +266,7 @@ def uploadUserCSV(request):
             except MajorCode.DoesNotExist:
                 print(f"Major {major} with code {code} does not exist")
                 return Response({"error": f"Major {major} with code {code} does not exist"}, status=status.HTTP_400_BAD_REQUEST)
-        user,created = User.objects.get_or_create( username=user,)
+        user, created = User.objects.get_or_create(username=user,)
         if created:
             user.set_password(password[0])
             user.is_active = True
@@ -274,10 +276,58 @@ def uploadUserCSV(request):
             user.save()
             print(f"User {user.username} created")
 
+    return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_200_OK)
 
 
+@api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def uploadUserCSV(request):
+    print("Uploading CSV file")
+    csv = request.FILES['file']
+    df = pd.read_csv(csv)
+    users = df['Usuario'].drop_duplicates().tolist()
+    for user in users:
+        print(f"Processing user: {user}")
+        password = df[df['Usuario'] ==
+                      user]['Contraseña'].drop_duplicates().tolist()
+        majors = df[df['Usuario'] ==
+                    user]['Nombre_Carrera'].drop_duplicates().tolist()
+        major_codes = df[df['Usuario'] ==
+                         user]['Codigo_Carrera'].drop_duplicates().tolist()
+
+        found_majors = []
+
+        for major, code in zip(majors, major_codes):
+            try:
+                major_obj = Major.objects.get(name=major.upper())
+                if major_obj:
+                    found_majors.append(major_obj)
+                    print(f"Found major: {major_obj.name} without code")
+            except Major.DoesNotExist:
+                print(f"Didn't find major {major} by name")
+
+            try:
+                major_obj_code = MajorCode.objects.get(code=code)
+
+                if major_obj_code:
+                    found_majors.append(major_obj_code.major)
+                    print(f"Found major {major} with code {code}")
+            except MajorCode.DoesNotExist:
+                print(f"Major {major} with code {code} does not exist")
+                return Response({"error": f"Major {major} with code {code} does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+        user, created = User.objects.get_or_create(username=user,)
+        if created:
+            user.set_password(password[0])
+            user.is_active = True
+            user.is_staff = False
+            user.is_superuser = False
+            user.majors.set(found_majors)
+            user.save()
+            print(f"User {user.username} created")
 
     return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
@@ -311,13 +361,12 @@ def sendEmail(request):
         smtp_tls_context=None,
         smtp_debug=False)
 
-    
     if is_valid:
         email = MIMEMultipart()
         email['From'] = EMAIL_ADDRESS
         email['To'] = recipient
         email['Subject'] = filename
-        email.attach(MIMEText(generate_email_text(filename,subject), 'plain'))
+        email.attach(MIMEText(generate_email_text(filename, subject), 'plain'))
 
         with smtplib.SMTP(SMPTP_SERVER, SMTP_PORT) as server:
             server.starttls()
