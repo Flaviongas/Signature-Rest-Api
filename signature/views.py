@@ -230,63 +230,28 @@ def isAdmin(request):
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def uploadStudentCSV(request):
-    print("Uploading CSV file")
-    csv = request.FILES['file']
-    df = pd.read_csv(csv)
-    users = df['Usuario'].drop_duplicates().tolist()
-    if len(users) > 2000:
-        return Response({"error": "El archivo CSV no puede tener más de 2000 usuarios"}, status=status.HTTP_400_BAD_REQUEST)
-    for user in users:
-        print(f"Processing user: {user}")
-        password = df[df['Usuario'] ==
-                      user]['Contraseña'].drop_duplicates().tolist()
-        majors = df[df['Usuario'] ==
-                    user]['Nombre_Carrera'].drop_duplicates().tolist()
-        major_codes = df[df['Usuario'] ==
-                         user]['Codigo_Carrera'].drop_duplicates().tolist()
-
-        found_majors = []
-
-        for major, code in zip(majors, major_codes):
-            try:
-                major_obj = Major.objects.get(name=major.upper())
-                if major_obj:
-                    found_majors.append(major_obj)
-                    print(f"Found major: {major_obj.name} without code")
-            except Major.DoesNotExist:
-                print(f"Didn't find major {major} by name")
-
-            try:
-                major_obj_code = MajorCode.objects.get(code=code)
-
-                if major_obj_code:
-                    found_majors.append(major_obj_code.major)
-                    print(f"Found major {major} with code {code}")
-            except MajorCode.DoesNotExist:
-                print(f"Major {major} with code {code} does not exist")
-                return Response({"error": f"Major {major} with code {code} does not exist"}, status=status.HTTP_400_BAD_REQUEST)
-        user, created = User.objects.get_or_create(username=user,)
-        if created:
-            user.set_password(password[0])
-            user.is_active = True
-            user.is_staff = False
-            user.is_superuser = False
-            user.majors.set(found_majors)
-            user.save()
-            print(f"User {user.username} created")
-
-    return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_200_OK)
-
-
-@api_view(['POST'])
-@authentication_classes([SessionAuthentication, TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def uploadUserCSV(request):
     print("Uploading CSV file")
+
+    expected_columns = ['Usuario', 'Contraseña',
+                        'Nombre_Carrera', 'Codigo_Carrera']
+
     csv = request.FILES['file']
     df = pd.read_csv(csv)
+
+    columns = df.columns.tolist()
+
+    if not all(col in columns for col in expected_columns):
+        print("CSV file does not contain the expected columns")
+        return Response({"error": "El CSV no contiene las columnas correctas"}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        print("CSV file contains the expected columns")
+
     users = df['Usuario'].drop_duplicates().tolist()
+
+    if len(users) > 2000:
+        return Response({"error": "El archivo CSV no puede tener más de 2000 usuarios"}, status=status.HTTP_400_BAD_REQUEST)
+
     for user in users:
         print(f"Processing user: {user}")
         password = df[df['Usuario'] ==
