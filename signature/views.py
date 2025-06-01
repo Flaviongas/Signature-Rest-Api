@@ -4,7 +4,7 @@ from validate_email import validate_email
 import socket
 import dns.resolver
 from Asistencia.settings import EMAIL_ADDRESS, EMAIL_APP_PASSWORD
-from signature.utils import generate_email_text
+from signature.utils import generate_email_text, digito_verificador
 from .models import Major, Subject, Student, MajorCode
 from rest_framework import viewsets, status
 from .serializers import MajorSerializer, SubjectSerializer, StudentSerializer, UserSerializer, SubjectEnrollmentSerializer, UnenrollSubjectSerializer, DeleteStudentSerializer, CreateStudentSerializer, UpdateStudentSerializer
@@ -19,6 +19,7 @@ import smtplib
 from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from numpy import dot
 
 User = get_user_model()  # This gets your custom PermissionUser
 SMPTP_SERVER = 'smtp.gmail.com'
@@ -230,6 +231,116 @@ def isAdmin(request):
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
+def uploadStudentCSV(request):
+    print("Uploading CSV file")
+
+    expected_columns = ['Rut', 'Nombre', 'Segundo_Nombre',
+                        'Apellido', 'Segundo_Apellido', 'Nombre_Carrera',
+                        'Codigo_Carrera', 'Asignatura', 'NRC']
+
+    csv = request.FILES['file']
+    df = pd.read_csv(csv)
+
+    columns = df.columns.tolist()
+    print(f"CSV columns: {columns}")
+
+    if not all(col in columns for col in expected_columns):
+        print("CSV file does not contain the expected columns")
+        return Response({"error": "El CSV no contiene las columnas correctas"}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        print("CSV file contains the expected columns")
+
+    students = df['Rut'].drop_duplicates().tolist()
+
+    if len(students) > 2000:
+        return Response({"error": "El archivo CSV no puede tener más de 2000 alumnos"}, status=status.HTTP_400_BAD_REQUEST)
+
+    for student in students:
+        print(f"Processing student: {student}")
+        nombre = df[df['Rut'] ==
+                    student]['Nombre'].drop_duplicates().tolist()[0].upper()
+        if not nombre:
+            print(f"Nombre is empty for student {student}")
+            return Response({"error": f"El nombre del estudiante {student} no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
+        print(f"Nombre: {nombre}")
+        segundo_nombre = df[df['Rut'] ==
+                            student]['Segundo_Nombre'].drop_duplicates().tolist()[0].upper()
+        if not segundo_nombre:
+            print(f"Segundo nombre is empty for student {student}")
+            return Response({"error": f"El segundo nombre del estudiante {student} no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
+        apellido = df[df['Rut'] ==
+                      student]['Apellido'].drop_duplicates().tolist()[0].upper()
+        if not apellido:
+            print(f"Apellido is empty for student {student}")
+            return Response({"error": f"El apellido del estudiante {student} no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
+        segundo_apellido = df[df['Rut'] ==
+                              student]['Segundo_Apellido'].drop_duplicates().tolist()[0].upper()
+        if not segundo_apellido:
+            print(f"Segundo apellido is empty for student {student}")
+            return Response({"error": f"El segundo apellido del estudiante {student} no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
+
+        major = df[df['Rut'] ==
+                   student]['Nombre_Carrera'].drop_duplicates().tolist()[0]
+        if not major:
+            print(f"Major is empty for student {student}")
+            return Response({"error": f"La carrera del estudiante {student} no puede estar vacía"}, status=status.HTTP_400_BAD_REQUEST)
+        major_code = df[df['Rut'] ==
+                        student]['Codigo_Carrera'].drop_duplicates().tolist()[0]
+        if not major_code:
+            print(f"Major code is empty for student {student}")
+            return Response({"error": f"El código de carrera del estudiante {student} no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
+        print(f"Major: {major}, Major Code: {major_code}")
+
+        # TODO: Implementar la logica para agregar las asignaturas al estudiante
+        # subjects = df[df['Rut'] == student]['Asignatura'].drop_duplicates().tolist()
+        # NRC = df[df['Rut'] == student]['NRC'].drop_duplicates().tolist()
+
+        found_major = None
+        try:
+            major_obj = Major.objects.get(name=major.upper())
+            if major_obj:
+                found_major = major_obj
+                print(f"Found major: {major_obj.name} without code")
+        except Major.DoesNotExist:
+            print(f"Didn't find major {major} by name")
+
+        try:
+            major_obj_code = MajorCode.objects.get(code=major_code)
+
+            if major_obj_code:
+                found_major = major_obj_code.major
+                print(f"Found major {major} with code {major_code}")
+        except MajorCode.DoesNotExist:
+            print(f"Major {major} with code {major_code} does not exist")
+            return Response({"error": f"Major {major} with code {major_code} does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+        found_student = None
+        try:
+            found_student = Student.objects.get(rut=student)
+            print(f"Found student: {found_student.first_name}")
+            return Response({"error": f"El estudiante {found_student.first_name} ya existe"}, status=status.HTTP_400_BAD_REQUEST)
+        except Student.DoesNotExist:
+            print(f"Didn't find student {student} by rut")
+        print(digito_verificador(student))
+        new_student = {
+            "rut": student,
+            "dv": str(digito_verificador(student)),
+            "first_name": nombre if nombre else "",
+            "second_name": segundo_nombre if segundo_nombre else "",
+            "last_name": apellido if apellido else "",
+            "second_last_name": segundo_apellido[0] if segundo_apellido else "",
+            "major": found_major
+        }
+        student, created = Student.objects.get_or_create(**new_student)
+        print(f"Student {student.first_name} created")
+        continue
+
+    return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def uploadUserCSV(request):
     print("Uploading CSV file")
 
@@ -291,7 +402,7 @@ def uploadUserCSV(request):
             user.save()
             print(f"User {user.username} created")
 
-    return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_200_OK)
+    return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
