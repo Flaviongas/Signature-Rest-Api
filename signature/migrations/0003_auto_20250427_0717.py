@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     def insert_subjects(apps, schema_editor):
         Subject = apps.get_model('signature', 'Subject')
-        with open('signature/migrations/subjects.json', 'r') as file:
+        with open('signature/migrations/subjects.json', 'r', encoding='utf-8') as file:
             subjects = json.load(file)
             for subject in subjects:
                 current_subject = Subject.objects.create(

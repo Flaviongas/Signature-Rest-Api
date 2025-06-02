@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     def RelateStudentsSubjects(apps, schema_editor):
         Student = apps.get_model('signature', 'Student')
         Subject = apps.get_model('signature', 'Subject')
-        with open('signature/migrations/students.json', 'r') as file:
+        with open('signature/migrations/students.json', 'r', encoding='utf-8') as file:
             students = json.load(file)
             for student in students:
                 found_student = Student.objects.filter(
