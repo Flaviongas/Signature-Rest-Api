@@ -21,7 +21,7 @@ load_dotenv()
 LOG_DIR = os.path.join(Path(__file__).resolve().parent.parent, 'logs')
 if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
-    
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -54,19 +54,19 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'signature.middleware.logging_middleware.RequestLoggingMiddleware',  
+    'signature.middleware.logging_middleware.RequestLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'Asistencia.urls'
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -143,7 +143,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            '()': 'signature.middleware.logging_formatters.NoColorFormatter', 
+            '()': 'signature.middleware.logging_formatters.NoColorFormatter',
             'format': '{levelname} {asctime} {module} {message}',
             'style': '{',
         },
@@ -155,7 +155,8 @@ LOGGING = {
     'handlers': {
         'file': {
             'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',  # Rotación para evitar archivos muy grandes
+            # Rotación para evitar archivos muy grandes
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(LOG_DIR, 'api_requests.log'),
             'formatter': 'verbose',
             'maxBytes': 5 * 1024 * 1024,  # 5MB
@@ -177,7 +178,7 @@ LOGGING = {
             'handlers': ['file', 'console'],
             'level': 'DEBUG',
         },
-        'django.server': {  
+        'django.server': {
             'handlers': [],
             'propagate': False,
         },
