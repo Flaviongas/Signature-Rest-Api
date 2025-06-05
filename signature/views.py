@@ -235,10 +235,11 @@ def uploadStudentCSV(request):
     print("Uploading CSV file")
 
     expected_columns = ['Rut', 'Nombre', 'Segundo_Nombre',
-                        'Apellido', 'Segundo_Apellido', 'Nombre_Carrera',
-                        'Codigo_Carrera', 'Asignatura', 'NRC']
+                        'Apellido', 'Segundo_Apellido']
 
     csv = request.FILES['file']
+    major_id = request.data.get('major_id')
+    print(f"Major ID: {major_id}")
     df = pd.read_csv(csv)
 
     columns = df.columns.tolist()
@@ -254,6 +255,10 @@ def uploadStudentCSV(request):
 
     if len(students) > 2000:
         return Response({"error": "El archivo CSV no puede tener más de 2000 alumnos"}, status=status.HTTP_400_BAD_REQUEST)
+
+    if not major_id:
+        print(f"Major is empty ")
+        return Response({"error": "El ID de la carrera no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
 
     for student in students:
         print(f"Processing student: {student}")
@@ -279,41 +284,6 @@ def uploadStudentCSV(request):
             print(f"Segundo apellido is empty for student {student}")
             return Response({"error": f"El segundo apellido del estudiante {student} no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
 
-        major = df[df['Rut'] ==
-                   student]['Nombre_Carrera'].drop_duplicates().tolist()[0]
-        if not major:
-            print(f"Major is empty for student {student}")
-            return Response({"error": f"La carrera del estudiante {student} no puede estar vacía"}, status=status.HTTP_400_BAD_REQUEST)
-        major_code = df[df['Rut'] ==
-                        student]['Codigo_Carrera'].drop_duplicates().tolist()[0]
-        if not major_code:
-            print(f"Major code is empty for student {student}")
-            return Response({"error": f"El código de carrera del estudiante {student} no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
-        print(f"Major: {major}, Major Code: {major_code}")
-
-        # TODO: Implementar la logica para agregar las asignaturas al estudiante
-        # subjects = df[df['Rut'] == student]['Asignatura'].drop_duplicates().tolist()
-        # NRC = df[df['Rut'] == student]['NRC'].drop_duplicates().tolist()
-
-        found_major = None
-        try:
-            major_obj = Major.objects.get(name=major.upper())
-            if major_obj:
-                found_major = major_obj
-                print(f"Found major: {major_obj.name} without code")
-        except Major.DoesNotExist:
-            print(f"Didn't find major {major} by name")
-
-        try:
-            major_obj_code = MajorCode.objects.get(code=major_code)
-
-            if major_obj_code:
-                found_major = major_obj_code.major
-                print(f"Found major {major} with code {major_code}")
-        except MajorCode.DoesNotExist:
-            print(f"Major {major} with code {major_code} does not exist")
-            return Response({"error": f"Major {major} with code {major_code} does not exist"}, status=status.HTTP_400_BAD_REQUEST)
-
         found_student = None
         try:
             found_student = Student.objects.get(rut=student)
@@ -329,10 +299,15 @@ def uploadStudentCSV(request):
             "second_name": segundo_nombre if segundo_nombre else "",
             "last_name": apellido if apellido else "",
             "second_last_name": segundo_apellido[0] if segundo_apellido else "",
-            "major": found_major
+            "major_id": major_id
         }
-        student, created = Student.objects.get_or_create(**new_student)
-        print(f"Student {student.first_name} created")
+        serializer = CreateStudentSerializer(data=new_student)
+        if serializer.is_valid():
+            serializer.save()
+            print(f"Student {serializer.data['first_name']} created")
+        else:
+            print(f"Error creating student {student}: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         continue
 
     return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_204_NO_CONTENT)
@@ -375,32 +350,35 @@ def uploadUserCSV(request):
         found_majors = []
 
         for major, code in zip(majors, major_codes):
+            found = False
             try:
                 major_obj = Major.objects.get(name=major.upper())
                 if major_obj:
-                    found_majors.append(major_obj)
-                    print(f"Found major: {major_obj.name} without code")
+                    found_majors.append(major_obj.id)
+                    found = True
+                    print(f"Found major: {major_obj.name} by name")
             except Major.DoesNotExist:
                 print(f"Didn't find major {major} by name")
 
-            try:
-                major_obj_code = MajorCode.objects.get(code=code)
+            if not found:
+                try:
+                    major_obj_code = MajorCode.objects.get(code=code)
 
-                if major_obj_code:
-                    found_majors.append(major_obj_code.major)
-                    print(f"Found major {major} with code {code}")
-            except MajorCode.DoesNotExist:
-                print(f"Major {major} with code {code} does not exist")
-                return Response({"error": f"Major {major} with code {code} does not exist"}, status=status.HTTP_400_BAD_REQUEST)
-        user, created = User.objects.get_or_create(username=user,)
-        if created:
-            user.set_password(password[0])
-            user.is_active = True
-            user.is_staff = False
-            user.is_superuser = False
-            user.majors.set(found_majors)
-            user.save()
-            print(f"User {user.username} created")
+                    if major_obj_code:
+                        found_majors.append(major_obj_code.major.id)
+                        print(f"Found major {major} with code {code}")
+                except MajorCode.DoesNotExist:
+                    print(f"Major {major} with code {code} does not exist")
+                    return Response({"error": f"Major {major} with code {code} does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = UserSerializer(
+            data={"username": user, "password": password[0], "major_ids": found_majors})
+        if serializer.is_valid():
+            user_instance = serializer.save()
+            print(f"User {user_instance.username} created")
+        else:
+            print(f"Error creating user {user}: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_204_NO_CONTENT)
 
