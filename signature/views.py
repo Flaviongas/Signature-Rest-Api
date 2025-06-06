@@ -231,6 +231,69 @@ def isAdmin(request):
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
+def uploadStudentSubjectCSV(request):
+    print("Uploading CSV file")
+
+    expected_columns = ['Rut']
+
+    csv = request.FILES['file']
+    major_id = request.data.get('major_id')
+    subject_id = request.data.get('subject_id')
+    print(f"Major ID: {major_id}")
+    print(f"Subject ID: {subject_id}")
+    df = pd.read_csv(csv)
+
+    columns = df.columns.tolist()
+    print(f"CSV columns: {columns}")
+
+    if not all(col in columns for col in expected_columns):
+        print("CSV file does not contain the expected columns")
+        return Response({"error": "El CSV no contiene las columnas correctas"}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        print("CSV file contains the expected columns")
+
+    students = df['Rut'].drop_duplicates().tolist()
+
+    if len(students) > 2000:
+        return Response({"error": "El archivo CSV no puede tener más de 2000 alumnos"}, status=status.HTTP_400_BAD_REQUEST)
+
+    if not major_id:
+        print(f"Major is empty ")
+        return Response({"error": "El ID de la carrera no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
+    if not subject_id:
+        print(f"Subject is empty ")
+        return Response({"error": "El ID de la asignatura no puede estar vacío"}, status=status.HTTP_400_BAD_REQUEST)
+
+    for rut in students:
+        found_student = None
+        try:
+            found_student = Student.objects.get(rut=rut)
+            found_student_major = found_student.major.id
+            if found_student_major != int(major_id):
+                print(f"El estudiante {
+                      found_student.first_name} no pertenece a la carrera")
+                return Response({"error": f"El estudiante {found_student.first_name} no pertenece a la carrera"}, status=status.HTTP_400_BAD_REQUEST)
+            print(f"Found student: {found_student.first_name}")
+        except Student.DoesNotExist:
+            print(f"Didn't find student {rut} by rut")
+            return Response({"error": f"El estudiante con RUT {rut} no fue encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = SubjectEnrollmentSerializer(
+            data={'student_id': found_student.id, 'subject_id': subject_id})
+        if serializer.is_valid():
+            serializer.save()
+            print(f"Student {found_student.first_name} enrolled in subject")
+        else:
+            print(f"Error creating subject enrollment for student {
+                  rut}: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def uploadStudentCSV(request):
     print("Uploading CSV file")
 
@@ -308,9 +371,8 @@ def uploadStudentCSV(request):
         else:
             print(f"Error creating student {student}: {serializer.errors}")
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        continue
 
-    return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_204_NO_CONTENT)
+    return Response({"status": "Archivo CSV subido correctamente"}, status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
@@ -380,7 +442,7 @@ def uploadUserCSV(request):
             print(f"Error creating user {user}: {serializer.errors}")
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    return Response({"status": "CSV file uploaded successfully"}, status=status.HTTP_204_NO_CONTENT)
+    return Response({"status": "Archivo CSV subido correctamente"}, status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
