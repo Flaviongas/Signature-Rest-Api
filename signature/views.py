@@ -252,6 +252,11 @@ def uploadStudentSubjectCSV(request):
     else:
         print("CSV file contains the expected columns")
 
+    for col in columns:
+        if df[col].isnull().any():
+            print(f"Column {col} contains null values")
+            return Response({"error": f"La columna {col} no puede tener valores nulos"}, status=status.HTTP_400_BAD_REQUEST)
+
     students = df['Rut'].drop_duplicates().tolist()
 
     if len(students) > 2000:
@@ -306,6 +311,7 @@ def uploadStudentCSV(request):
     df = pd.read_csv(csv)
 
     columns = df.columns.tolist()
+
     print(f"CSV columns: {columns}")
 
     if not all(col in columns for col in expected_columns):
@@ -313,6 +319,14 @@ def uploadStudentCSV(request):
         return Response({"error": "El CSV no contiene las columnas correctas"}, status=status.HTTP_400_BAD_REQUEST)
     else:
         print("CSV file contains the expected columns")
+
+    for col in columns:
+        if df[col].isnull().any():
+            print(f"Column {col} contains null values")
+            return Response({"error": f"La columna {col} no puede tener valores nulos"}, status=status.HTTP_400_BAD_REQUEST)
+    if not pd.api.types.is_numeric_dtype(df['Rut']):
+        print("Rut column contains non-numeric values")
+        return Response({"error": "La columna Rut debe contener solo valores numéricos"}, status=status.HTTP_400_BAD_REQUEST)
 
     students = df['Rut'].drop_duplicates().tolist()
 
@@ -394,6 +408,11 @@ def uploadUserCSV(request):
         return Response({"error": "El CSV no contiene las columnas correctas"}, status=status.HTTP_400_BAD_REQUEST)
     else:
         print("CSV file contains the expected columns")
+
+    for col in columns:
+        if df[col].isnull().any():
+            print(f"Column {col} contains null values")
+            return Response({"error": f"La columna {col} no puede tener valores nulos"}, status=status.HTTP_400_BAD_REQUEST)
 
     users = df['Usuario'].drop_duplicates().tolist()
 

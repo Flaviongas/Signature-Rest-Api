@@ -8,40 +8,17 @@ from rest_framework.authtoken.models import Token
 
 User = get_user_model()
 
-@pytest.fixture
-def api_client():
-    return APIClient()
-
-@pytest.fixture
-def auth_client():
-    user = User.objects.create_user(username='testuser', password='testpass123')
-    client = APIClient()
-    token, _ = Token.objects.get_or_create(user=user)
-    client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
-    return client, user
-
-@pytest.fixture
-def admin_client():
-    admin_user = User.objects.create_superuser(username='admin', password='admin123')
-    client = APIClient()
-    token, _ = Token.objects.get_or_create(user=admin_user)
-    client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
-    return client, admin_user
-
-@pytest.fixture
-def test_major():
-    return Major.objects.create(name='Computer Science', faculty='Engineering')
 
 @pytest.mark.django_db
 class TestUserAPI:
-    
+
     def test_list_users_with_authorization(self, auth_client):
         client, _ = auth_client
         url = reverse('users-list')
         response = client.get(url)
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) > 0
-    
+
     def test_create_user_success(self, admin_client):
         client, _ = admin_client
         url = reverse('users-list')
@@ -54,7 +31,7 @@ class TestUserAPI:
         response = client.post(url, data, format='json')
         assert response.status_code == status.HTTP_201_CREATED
         assert User.objects.filter(username='newuser').exists()
-    
+
     def test_create_user_without_password(self, admin_client):
         client, _ = admin_client
         url = reverse('users-list')
@@ -64,7 +41,7 @@ class TestUserAPI:
         }
         response = client.post(url, data, format='json')
         assert response.status_code == status.HTTP_400_BAD_REQUEST
-    
+
     def test_create_user_with_invalid_username(self, admin_client):
         client, _ = admin_client
         url = reverse('users-list')
@@ -75,50 +52,53 @@ class TestUserAPI:
         }
         response = client.post(url, data, format='json')
         assert response.status_code == status.HTTP_400_BAD_REQUEST
-    
+
     def test_update_user_success(self, admin_client, test_major):
         client, _ = admin_client
-        
+
         # Crear un segundo major para la prueba
         second_major = Major.objects.create(name='Biology', faculty='Science')
-        
-        user = User.objects.create_user(username='updateme', password='updatemepass')
+
+        user = User.objects.create_user(
+            username='updateme', password='updatemepass')
         user.majors.add(test_major)
-        
+
         # Al inicio, el usuario tiene solo test_major asignado
         assert list(user.majors.all()) == [test_major]
-        
+
         url = reverse('users-detail', kwargs={'pk': user.pk})
         data = {
             'first_name': 'Updated',
-            'major_ids': [second_major.id]  
+            'major_ids': [second_major.id]
         }
         response = client.patch(url, data, format='json')
         assert response.status_code == status.HTTP_200_OK
         user.refresh_from_db()
-        
+
         # Verificamos que las majors se actualizaron correctamente
         assert list(user.majors.all()) == [second_major]
         assert user.majors.count() == 1
-    
+
     def test_update_user_invalid_data(self, admin_client):
         client, _ = admin_client
-        user = User.objects.create_user(username='updateme2', password='pass123')
+        user = User.objects.create_user(
+            username='updateme2', password='pass123')
         url = reverse('users-detail', kwargs={'pk': user.pk})
         data = {
             'username': 'invalid@username'
         }
         response = client.patch(url, data, format='json')
         assert response.status_code == status.HTTP_400_BAD_REQUEST
-    
+
     def test_delete_user_success(self, admin_client):
         client, _ = admin_client
-        user = User.objects.create_user(username='deleteme', password='pass123')
+        user = User.objects.create_user(
+            username='deleteme', password='pass123')
         url = reverse('users-detail', kwargs={'pk': user.pk})
         response = client.delete(url)
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert not User.objects.filter(username='deleteme').exists()
-    
+
     def test_delete_nonexistent_user(self, admin_client):
         client, _ = admin_client
         # Assuming a non-existent ID is used
