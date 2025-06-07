@@ -2,6 +2,7 @@
 
 from django.db import migrations
 import json
+import os
 
 
 class Migration(migrations.Migration):
@@ -9,7 +10,9 @@ class Migration(migrations.Migration):
     def RelateStudentsSubjects(apps, schema_editor):
         Student = apps.get_model('signature', 'Student')
         Subject = apps.get_model('signature', 'Subject')
-        with open('signature/migrations/students.json', 'r', encoding='utf-8') as file:
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        json_path = os.path.join(base_dir, 'data', 'students.json')
+        with open(json_path, 'r', encoding='utf-8') as file:
             students = json.load(file)
             for student in students:
                 found_student = Student.objects.filter(
@@ -22,7 +25,6 @@ class Migration(migrations.Migration):
                     if found_student and found_subject:
                         found_student.subjects.add(found_subject)
                         found_student.save()
-
     dependencies = [
         ('signature', '0004_auto_20250427_0725'),
     ]

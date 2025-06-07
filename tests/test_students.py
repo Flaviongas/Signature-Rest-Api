@@ -42,8 +42,13 @@ def test_major():
 @pytest.fixture
 def test_student(test_major):
     return Student.objects.create(
+<<<<<<< HEAD
         rut='12345678',
         dv='5',
+=======
+        rut='21036910',
+        dv='4',
+>>>>>>> 00c0d8f (QA_STRATEGY updated, migrations refreshed, test cases revised, data/*.json routes included, and MajorViewSet changed to ReadOnlyModelViewSet for read-only access)
         first_name='John',
         second_name='Robert',
         last_name='Doe',
@@ -89,8 +94,13 @@ class TestStudentAPI:
         client, _ = auth_client
         url = reverse('students-create-student')
         data = {
+<<<<<<< HEAD
             'rut': '12345684',
             'dv': 'K',
+=======
+            'rut': '21036910',
+            'dv': '4',
+>>>>>>> 00c0d8f (QA_STRATEGY updated, migrations refreshed, test cases revised, data/*.json routes included, and MajorViewSet changed to ReadOnlyModelViewSet for read-only access)
             'first_name': 'Alice',
             'second_name': 'Marie',
             'last_name': 'Johnson',
@@ -100,8 +110,13 @@ class TestStudentAPI:
         response = client.post(url, data, format='json')
 
         assert response.status_code == status.HTTP_201_CREATED
+<<<<<<< HEAD
         assert Student.objects.filter(rut='12345684', dv='K').exists()
 
+=======
+        assert Student.objects.filter(rut='21036910', dv='4').exists()
+    
+>>>>>>> 00c0d8f (QA_STRATEGY updated, migrations refreshed, test cases revised, data/*.json routes included, and MajorViewSet changed to ReadOnlyModelViewSet for read-only access)
     def test_create_student_missing_required_field(self, auth_client, test_major):
         client, _ = auth_client
         url = reverse('students-create-student')

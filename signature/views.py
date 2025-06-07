@@ -114,7 +114,7 @@ class StudentViewSet(viewsets.ModelViewSet):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class MajorViewSet(viewsets.ModelViewSet):
+class MajorViewSet(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication, SessionAuthentication, )
     permission_classes = (IsAuthenticated, )
     queryset = Major.objects.all()

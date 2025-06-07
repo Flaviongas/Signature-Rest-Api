@@ -2,6 +2,7 @@
 
 from django.db import migrations
 import json
+import os
 
 
 class Migration(migrations.Migration):
@@ -12,7 +13,9 @@ class Migration(migrations.Migration):
 
     def insert_subjects(apps, schema_editor):
         Subject = apps.get_model('signature', 'Subject')
-        with open('signature/migrations/subjects.json', 'r', encoding='utf-8') as file:
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        json_path = os.path.join(base_dir, 'data', 'subjects.json')
+        with open(json_path, 'r', encoding='utf-8') as file:
             subjects = json.load(file)
             for subject in subjects:
                 current_subject = Subject.objects.create(
@@ -22,9 +25,7 @@ class Migration(migrations.Migration):
                     major_instance = apps.get_model('signature', 'Major').objects.get(
                         name=major
                     )
-                    current_subject.major.add(
-                        major_instance
-                    )
+                    current_subject.major.add(major_instance)
                 current_subject.save()
 
     operations = [

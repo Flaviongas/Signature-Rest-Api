@@ -239,7 +239,6 @@ class CreateStudentSerializer(serializers.Serializer):
             major=self.major
         )
 
-
 class UpdateStudentSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     first_name = serializers.CharField(validators=[name_regex])
