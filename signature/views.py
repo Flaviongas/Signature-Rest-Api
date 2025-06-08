@@ -140,7 +140,7 @@ class MajorViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(majors)
 
 
-class SubjectViewSet(viewsets.ModelViewSet):
+class SubjectViewSet(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication, SessionAuthentication, )
     queryset = Subject.objects.all()
     permission_classes = (IsAuthenticated, )
