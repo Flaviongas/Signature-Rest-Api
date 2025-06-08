@@ -183,7 +183,7 @@ class TestSubjectAPI:
         client, _ = auth_client
         url ='/api/students/remove-subject/'
         data = {
-            'student_id': test_student.id,
+            'student_ids': [test_student.id],  # Cambio: ahora es una lista
             'subject_id': test_subject.id
         }
         response = client.delete(url, data, format='json')
@@ -191,12 +191,12 @@ class TestSubjectAPI:
         assert response.status_code == status.HTTP_200_OK
         test_subject.refresh_from_db()
         assert test_student not in test_subject.students.all()
-    
+
     def test_unenroll_nonexistent_student(self, auth_client, test_subject):
         client, _ = auth_client
         url ='/api/students/remove-subject/'
         data = {
-            'student_id': 99999,
+            'student_ids': [99999],  # Ya estaba correcto como lista
             'subject_id': test_subject.id
         }
         response = client.delete(url, data, format='json')
