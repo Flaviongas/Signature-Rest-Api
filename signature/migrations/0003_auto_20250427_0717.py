@@ -11,25 +11,7 @@ class Migration(migrations.Migration):
         ('signature', '0002_auto_20250427_0714'),
     ]
 
-    def insert_subjects(apps, schema_editor):
-        Subject = apps.get_model('signature', 'Subject')
-        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        json_path = os.path.join(base_dir, 'data', 'subjects.json')
-        with open(json_path, 'r', encoding='utf-8') as file:
-            subjects = json.load(file)
-            for subject in subjects:
-                current_subject = Subject.objects.create(
-                    name=subject['name'],
-                )
-                for major in subject['major']:
-                    major_instance = apps.get_model('signature', 'Major').objects.get(
-                        name=major
-                    )
-                    current_subject.major.add(major_instance)
-                current_subject.save()
-
+    
     operations = [
-        migrations.RunPython(
-            insert_subjects
-        ),
+        
     ]
