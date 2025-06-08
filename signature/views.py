@@ -112,6 +112,7 @@ class StudentViewSet(viewsets.ModelViewSet):
 
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
 
 
 class MajorViewSet(viewsets.ModelViewSet):
@@ -156,6 +157,26 @@ class SubjectViewSet(viewsets.ModelViewSet):
         subject = serializer.save()
         self.request.META['RESOURCE_NAME'] = subject.name
 
+    @action(detail=False, methods=["POST"], url_path='get-subjects-by-major')
+    def getSubjectsByMajor(self, request):
+        major_id = request.data.get('major_id')
+        if not major_id:
+            return Response(
+                {"error": "major_id es requerido."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        try:
+            major_id = int(major_id)
+        except (ValueError, TypeError):
+            return Response(
+                {"error": "major_id debe ser un número entero válido."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        subjects_queryset = Subject.objects.filter(major__id=major_id).prefetch_related('students')
+        serializer = SubjectSerializer(subjects_queryset, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class UserViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication, SessionAuthentication)

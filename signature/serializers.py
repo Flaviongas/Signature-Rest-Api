@@ -374,26 +374,37 @@ class SubjectEnrollmentSerializer(serializers.Serializer):
         self.student.subjects.add(self.subject)
         
 class UnenrollSubjectSerializer(serializers.Serializer):
-    student_id = serializers.IntegerField()
+    student_ids = serializers.ListField(
+        child=serializers.IntegerField()
+    )
+
     subject_id = serializers.IntegerField()
 
     def validate(self, data):
         try:
-            student = Student.objects.get(id=data['student_id'])
-        except Student.DoesNotExist:
-            raise serializers.ValidationError("Estudiante no encontrado")
-        
-        try:
             subject = Subject.objects.get(id=data['subject_id'])
+            
+            # Validate all students
+            students = []
+            for student_id in data['student_ids']:
+                try:
+                    student = Student.objects.get(id=student_id)
+                    
+                    # Check if subject belongs to student's major
+                    if not subject.major.filter(id=student.major.id).exists():
+                        raise serializers.ValidationError(f"La materia no pertenece a la carrera del estudiante con ID {student_id}")
+                    
+                    students.append(student)
+                except Student.DoesNotExist:
+                    raise serializers.ValidationError(f"Estudiante con ID {student_id} no encontrado")
+            
         except Subject.DoesNotExist:
             raise serializers.ValidationError("Materia no encontrada")
 
-        if not subject.major.filter(id=student.major.id).exists():
-            raise serializers.ValidationError("La materia no pertenece a la carrera del estudiante")
-        
-        self.student = student
+        self.students = students
         self.subject = subject
         return data
     
     def save(self):
-        self.student.subjects.remove(self.subject)
+        for student in self.students:
+            student.subjects.remove(self.subject)
