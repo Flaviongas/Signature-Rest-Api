@@ -2,6 +2,7 @@
 
 from django.db import migrations
 import json
+import os
 
 
 class Migration(migrations.Migration):
@@ -12,14 +13,15 @@ class Migration(migrations.Migration):
 
     def insert_students(apps, schema_editor):
         Student = apps.get_model('signature', 'Student')
-        with open('signature/migrations/students.json', 'r', encoding='utf-8') as file:
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        json_path = os.path.join(base_dir, 'data', 'students.json')
+        with open(json_path, 'r', encoding='utf-8') as file:
             students = json.load(file)
             for student in students:
-
                 found_major = apps.get_model('signature', 'Major').objects.filter(
                     name=student['Carrera']
                 )
-                current_student = Student.objects.create(
+                Student.objects.create(
                     rut=student['Rut'],
                     dv=student['DV'],
                     first_name=student['Nombre1'],

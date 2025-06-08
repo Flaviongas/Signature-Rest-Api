@@ -57,7 +57,7 @@ tests/
 
 ## Contenido mínimo esperado para cada archivo de tests
 
-### Para test_users.py se deben contemplar al menos los siguientes casos:
+### Checklist de pruebas para `test_users.py`
 
 #### Consulta de usuarios (GET)
 
@@ -65,21 +65,25 @@ tests/
 
 #### Creación de usuario (POST)
 
-- [ ] Creación exitosa de usuario con datos válidos
-- [ ] Intento de creación sin password (debe fallar con error 400)
-- [ ] Intento de creación con nombre de usuario inválido (caracteres no permitidos)
+- [x] Creación exitosa de usuario con datos válidos
+- [x] Intento de creación sin password (debe fallar con error 400)
+- [x] Intento de creación con nombre de usuario inválido (caracteres no permitidos)
 
 #### Modificación de usuario (PUT/PATCH)
 
-- [ ] Modificación exitosa con datos válidos
-- [ ] Intento de modificación con datos inválidos (ej: username con caracteres especiales)
+- [x] Modificación exitosa con datos válidos
+- [x] Intento de modificación con datos inválidos (ej: username con caracteres especiales)
 
 #### Eliminación de usuario (DELETE)
 
 - [x] Eliminación exitosa de un usuario existente
 - [x] Intento de eliminación de un usuario inexistente (debe retornar 404)
 
-### Para test_students.py se deben contemplar al menos los siguientes casos:
+#### Seguridad
+
+- [x] Intento de acceso no autorizado (sin token)
+
+### Checklist de pruebas para `test_students.py`
 
 #### Consulta de estudiantes (GET)
 
@@ -91,7 +95,8 @@ tests/
 - [x] Creación exitosa con todos los campos válidos
 - [x] Creación fallida si falta algún campo obligatorio (ej: `dv`, `rut`, `major`, etc.)
 - [x] Creación fallida si `rut` contiene caracteres no numéricos
-- [x] Creación fallida si `dv` contiene caracteres no numéricos
+- [x] Creación fallida si `dv` contiene caracteres no numéricos o inválidos
+- [x] Creación fallida si `major_id` no corresponde a una carrera existente
 - [x] Creación fallida si el estudiante no tiene al menos una carrera asignada (`major`)
 - [x] Creación fallida si `first_name`, `last_name`, `second_name`, `second_last_name` u otros campos contienen caracteres especiales no permitidos (`*/.><` etc.)
 - [x] No debe permitirse la creación de estudiantes duplicados con el mismo `rut` y `dv`
@@ -100,3 +105,102 @@ tests/
 
 - [x] Eliminación exitosa de un estudiante existente
 - [x] Intento de eliminación de un estudiante inexistente (debe retornar 404)
+
+#### Actualización de estudiante (PUT)
+
+- [x] Actualización exitosa con datos válidos
+
+#### Seguridad
+
+- [x] Intento de acceso no autorizado (sin token)
+
+### Checklist de pruebas para `test_subjects.py`
+
+#### Consulta de asignaturas (GET)
+
+- [x] Obtener listado completo de asignaturas
+- [x] Obtener detalle de una asignatura por ID
+
+#### Creación de asignaturas (POST)
+
+- [x] Creación exitosa con nombre válido y al menos una carrera (`major`)
+- [x] Creación fallida sin carrera asociada
+- [x] Creación fallida con nombre vacío
+
+#### Actualización de asignaturas (PATCH)
+
+- [x] Actualización exitosa de nombre y carrera
+- [x] Actualización fallida con datos inválidos (nombre vacío)
+
+#### Eliminación de asignaturas (DELETE)
+
+- [x] Eliminación exitosa de una asignatura existente
+- [x] Eliminación fallida de asignatura inexistente (404)
+
+#### Inscripción de estudiantes en asignaturas
+
+- [x] Inscripción exitosa de estudiante a asignatura
+- [x] Inscripción fallida si el estudiante no existe
+- [x] Inscripción fallida si la asignatura no existe
+
+#### Eliminación de inscripción (desinscripción)
+
+- [x] Desinscripción exitosa de estudiante desde asignatura
+- [x] Desinscripción fallida si el estudiante no existe
+
+#### Seguridad
+
+- [x] Intento de acceso no autorizado (sin token)
+
+### Checklist de pruebas para `test_majors.py`
+
+#### Consultas (GET)
+
+- [x] Obtener listado de carreras
+- [x] Obtener detalle de una carrera por ID
+- [x] Acción personalizada `getMajors`
+- [x] Detalle de carrera incluye materias asociadas
+
+#### Métodos no permitidos (POST / PUT / PATCH / DELETE)
+
+- [x] Bloqueo de creación (POST) - retorna 405 Method Not Allowed
+- [x] Bloqueo de actualización completa (PUT) - retorna 405 Method Not Allowed
+- [x] Bloqueo de actualización parcial (PATCH) - retorna 405 Method Not Allowed
+- [x] Bloqueo de eliminación (DELETE) - retorna 405 Method Not Allowed
+
+#### Seguridad
+
+- [x] Bloqueo de acceso a usuarios no autenticados (401)
+
+#### Asociación
+
+- [x] Ver materias asociadas a una carrera desde su detalle
+
+### Checklist de pruebas para `test_email_token.py`
+
+#### Envío de correo electrónico
+
+- [x] Envío exitoso de email con archivo adjunto (integración con endpoint `/sendEmail/`)
+
+### Checklist de pruebas para `test_csv.py`
+
+#### Subida de CSV de estudiantes (`/uploadStudentCSV/`)
+
+- [x] Subida exitosa de un archivo CSV válido con un solo estudiante
+- [x] Subida de archivo CSV con columnas faltantes (ej: falta `Segundo_Nombre`) debe fallar
+- [x] Subida de archivo CSV con más de 2000 estudiantes debe fallar
+- [x] Subida de CSV sin `major_id` debe fallar
+- [x] Subida de archivo CSV con campo `Nombre` vacío debe fallar
+- [x] Subida de archivo CSV con RUT inválido que genera error en el serializer debe fallar
+- [x] Subida exitosa de archivo CSV con múltiples estudiantes
+- [x] Subida sin autenticación debe ser rechazada (401 o 403)
+
+#### Subida de CSV de asignación de estudiantes a asignaturas (`/uploadStudentSubjectCSV/`)
+
+- [x] Subida con RUT de estudiante inexistente debe fallar con error 404
+- [x] Subida sin `subject_id` debe fallar
+
+#### Subida de CSV de usuarios (`/uploadUserCSV/`)
+
+- [x] Subida de archivo con carrera no existente debe fallar
+- [x] Subida de archivo con múltiples usuarios válidos debe ser exitosa
