@@ -120,22 +120,7 @@ tests/
 
 - [x] Obtener listado completo de asignaturas
 - [x] Obtener detalle de una asignatura por ID
-
-#### Creación de asignaturas (POST)
-
-- [x] Creación exitosa con nombre válido y al menos una carrera (`major`)
-- [x] Creación fallida sin carrera asociada
-- [x] Creación fallida con nombre vacío
-
-#### Actualización de asignaturas (PATCH)
-
-- [x] Actualización exitosa de nombre y carrera
-- [x] Actualización fallida con datos inválidos (nombre vacío)
-
-#### Eliminación de asignaturas (DELETE)
-
-- [x] Eliminación exitosa de una asignatura existente
-- [x] Eliminación fallida de asignatura inexistente (404)
+- [x] Obtener asignaturas por carrera (endpoint `get-subjects-by-major`)
 
 #### Inscripción de estudiantes en asignaturas
 

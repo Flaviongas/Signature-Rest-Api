@@ -14,6 +14,7 @@ name_regex = RegexValidator(
     )
     
     # Validación para RUT (solo números)
+
 rut_regex = RegexValidator(
     regex=r'^\d+$',
     message="El RUT solo debe contener números"
