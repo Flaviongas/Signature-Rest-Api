@@ -154,13 +154,12 @@ class TestSubjectAPI:
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_unenroll_students_from_subject(self, auth_client, test_subject, test_student):
-        # First enroll the student
         test_subject.students.add(test_student)
 
         client, _ = auth_client
         url = '/api/students/remove-subject/'
         data = {
-            'student_ids': [test_student.id],  # Cambio: ahora es una lista
+            'student_ids': [test_student.id],  
             'subject_id': test_subject.id
         }
         response = client.delete(url, data, format='json')
@@ -173,8 +172,7 @@ class TestSubjectAPI:
         client, _ = auth_client
         url = '/api/students/remove-subject/'
         data = {
-            'student_ids': [99999],  # Ya estaba correcto como lista
-            'subject_id': test_subject.id
+            'student_ids': [99999],  
         }
         response = client.delete(url, data, format='json')
 
