@@ -1,106 +1,367 @@
 [
   {
+    "major": "ARQUITECTURA",
     "faculty": "Fac. Arquitec. y Construcción",
-    "name": "ARQUITECTURA"
+    "subjects": [
+      "Diseño Arquitectónico I",
+      "Historia de la Arquitectura",
+      "Matemáticas para Arquitectura",
+      "Dibujo Técnico",
+      "Estructuras I",
+      "Construcción I",
+      "Urbanismo",
+      "Proyecto Final de Arquitectura"
+    ]
   },
   {
+    "major": "AUD. E ING EN CONTROL DE GEST.",
     "faculty": "Fac. Administración y Negocios",
-    "name": "AUD. E ING EN CONTROL DE GEST."
+    "subjects": [
+      "Contabilidad General",
+      "Auditoría I",
+      "Control de Gestión",
+      "Matemáticas Financieras",
+      "Costos y Presupuestos",
+      "Sistemas de Información",
+      "Auditoría de Sistemas",
+      "Ética Profesional"
+    ]
   },
   {
+    "major": "DERECHO",
     "faculty": "Fac. Derecho",
-    "name": "DERECHO"
+    "subjects": [
+      "Derecho Civil I",
+      "Derecho Constitucional",
+      "Derecho Penal",
+      "Derecho Procesal",
+      "Derecho Comercial",
+      "Derecho Laboral",
+      "Filosofía del Derecho",
+      "Práctica Profesional"
+    ]
   },
   {
+    "major": "ENFERMERÍA",
     "faculty": "Fac. Cs de la Salud",
-    "name": "ENFERMERÍA"
+    "subjects": [
+      "Anatomía y Fisiología",
+      "Fundamentos de Enfermería",
+      "Microbiología",
+      "Farmacología",
+      "Enfermería Médico-Quirúrgica",
+      "Pediatría",
+      "Salud Mental",
+      "Práctica Clínica"
+    ]
   },
   {
+    "major": "FONOAUDIOLOGÍA",
     "faculty": "Fac. Cs de la Salud",
-    "name": "FONOAUDIOLOGÍA"
+    "subjects": [
+      "Anatomía del Sistema Nervioso",
+      "Audiología",
+      "Trastornos del Lenguaje",
+      "Fonética y Fonología",
+      "Neurología",
+      "Terapia de Voz",
+      "Evaluación Fonoaudiológica",
+      "Práctica Profesional"
+    ]
   },
   {
+    "major": "ING. EN CONTROL DE GESTIÓN",
     "faculty": "Fac. Administración y Negocios",
-    "name": "ING. EN CONTROL DE GESTIÓN"
+    "subjects": [
+      "Contabilidad de Costos",
+      "Estadística Empresarial",
+      "Control de Gestión Estratégico",
+      "Finanzas Corporativas",
+      "Sistemas de Control",
+      "Análisis de Estados Financieros",
+      "Planificación Estratégica",
+      "Proyecto de Título"
+    ]
   },
   {
+    "major": "INGENIERÍA CIVIL INDUSTRIAL",
     "faculty": "Fac. Ingeniería",
-    "name": "INGENIERÍA CIVIL INDUSTRIAL"
+    "subjects": [
+      "Cálculo I",
+      "Física I",
+      "Química General",
+      "Investigación de Operaciones",
+      "Procesos Industriales",
+      "Gestión de Calidad",
+      "Logística y Distribución",
+      "Proyecto de Ingeniería"
+    ]
   },
   {
+    "major": "INGENIERÍA CIVIL INFORMÁTICA",
     "faculty": "Fac. Ingeniería",
-    "name": "INGENIERÍA CIVIL INFORMÁTICA"
+    "subjects": [
+      "Programación I",
+      "Estructuras de Datos",
+      "Base de Datos",
+      "Ingeniería de Software",
+      "Redes de Computadores",
+      "Inteligencia Artificial",
+      "Seguridad Informática",
+      "Proyecto de Título"
+    ]
   },
   {
+    "major": "INGENIERÍA COMERCIAL",
     "faculty": "Fac. Administración y Negocios",
-    "name": "INGENIERÍA COMERCIAL"
+    "subjects": [
+      "Microeconomía",
+      "Macroeconomía",
+      "Marketing",
+      "Finanzas I",
+      "Administración de Empresas",
+      "Comportamiento del Consumidor",
+      "Estrategia Empresarial",
+      "Plan de Negocios"
+    ]
   },
   {
+    "major": "INGENIERÍA EN ADMINISTRACIÓN",
     "faculty": "Fac. Administración y Negocios",
-    "name": "INGENIERÍA EN ADMINISTRACIÓN"
+    "subjects": [
+      "Administración General",
+      "Recursos Humanos",
+      "Gestión de Proyectos",
+      "Liderazgo y Equipos",
+      "Administración Financiera",
+      "Emprendimiento",
+      "Gestión de Operaciones",
+      "Seminario de Título"
+    ]
   },
   {
+    "major": "INGENIERÍA EN CONSTRUCCIÓN",
     "faculty": "Fac. Arquitec. y Construcción",
-    "name": "INGENIERÍA EN CONSTRUCCIÓN"
+    "subjects": [
+      "Resistencia de Materiales",
+      "Topografía",
+      "Hormigón Armado",
+      "Mecánica de Suelos",
+      "Planificación de Obras",
+      "Instalaciones Sanitarias",
+      "Prevención de Riesgos",
+      "Proyecto de Construcción"
+    ]
   },
   {
+    "major": "KINESIOLOGÍA",
     "faculty": "Fac. Cs de la Salud",
-    "name": "KINESIOLOGÍA"
+    "subjects": [
+      "Anatomía Humana",
+      "Biomecánica",
+      "Fisiología del Ejercicio",
+      "Terapia Manual",
+      "Kinesiología Deportiva",
+      "Rehabilitación Neurológica",
+      "Evaluación Kinésica",
+      "Práctica Clínica"
+    ]
   },
   {
+    "major": "NUTRICIÓN Y DIETÉTICA",
     "faculty": "Fac. Cs de la Salud",
-    "name": "NUTRICIÓN Y DIETÉTICA"
+    "subjects": [
+      "Bioquímica Nutricional",
+      "Evaluación Nutricional",
+      "Dietoterapia",
+      "Nutrición Clínica",
+      "Bromatología",
+      "Nutrición Comunitaria",
+      "Seguridad Alimentaria",
+      "Internado Profesional"
+    ]
   },
   {
+    "major": "ODONTOLOGÍA",
     "faculty": "Fac. Cs de la Salud",
-    "name": "ODONTOLOGÍA"
+    "subjects": [
+      "Anatomía Dental",
+      "Operatoria Dental",
+      "Endodoncia",
+      "Periodoncia",
+      "Cirugía Oral",
+      "Prótesis Dental",
+      "Radiología Oral",
+      "Clínica Integral"
+    ]
   },
   {
+    "major": "PED. EN EDUCACIÓN PARVULARIA",
     "faculty": "Fac. Educación",
-    "name": "PED. EN EDUCACIÓN PARVULARIA"
+    "subjects": [
+      "Desarrollo Infantil",
+      "Didáctica Parvularia",
+      "Juego y Aprendizaje",
+      "Evaluación en Educación Parvularia",
+      "Familia y Comunidad",
+      "Expresión Artística",
+      "Práctica Pedagógica",
+      "Taller de Graduación"
+    ]
   },
   {
+    "major": "PEDAGOGÍA EN ED. DIFERENCIAL",
     "faculty": "Fac. Educación",
-    "name": "PEDAGOGÍA EN ED. DIFERENCIAL"
+    "subjects": [
+      "Necesidades Educativas Especiales",
+      "Psicopedagogía",
+      "Trastornos del Aprendizaje",
+      "Adaptaciones Curriculares",
+      "Evaluación Diferencial",
+      "Inclusión Educativa",
+      "Práctica Profesional",
+      "Seminario de Título"
+    ]
   },
   {
+    "major": "PEDAGOGÍA EN EDUCACIÓN BÁSICA",
     "faculty": "Fac. Educación",
-    "name": "PEDAGOGÍA EN EDUCACIÓN BÁSICA"
+    "subjects": [
+      "Didáctica General",
+      "Matemáticas para la Enseñanza",
+      "Lenguaje y Comunicación",
+      "Ciencias Naturales",
+      "Historia y Geografía",
+      "Evaluación de Aprendizajes",
+      "Práctica Pedagógica",
+      "Proyecto Educativo"
+    ]
   },
   {
+    "major": "PEDAGOGÍA EN EDUCACIÓN FÍSICA",
     "faculty": "Fac. Educación",
-    "name": "PEDAGOGÍA EN EDUCACIÓN FÍSICA"
+    "subjects": [
+      "Fundamentos de Educación Física",
+      "Deportes Individuales",
+      "Deportes Colectivos",
+      "Recreación y Tiempo Libre",
+      "Entrenamiento Deportivo",
+      "Primeros Auxilios",
+      "Práctica Pedagógica",
+      "Metodología de la Investigación"
+    ]
   },
   {
+    "major": "PEDAGOGÍA EN INGLÉS",
     "faculty": "Fac. Educación",
-    "name": "PEDAGOGÍA EN INGLÉS"
+    "subjects": [
+      "Grammar and Composition",
+      "English Literature",
+      "Methodology of English Teaching",
+      "Phonetics and Pronunciation",
+      "Second Language Acquisition",
+      "Assessment in EFL",
+      "Teaching Practice",
+      "Applied Linguistics"
+    ]
   },
   {
+    "major": "PERIODISMO",
     "faculty": "Fac. Cs Sociales y Humanidades",
-    "name": "PERIODISMO"
+    "subjects": [
+      "Redacción Periodística",
+      "Comunicación Social",
+      "Periodismo Digital",
+      "Fotografía Periodística",
+      "Ética Periodística",
+      "Medios Audiovisuales",
+      "Investigación Periodística",
+      "Proyecto de Título"
+    ]
   },
   {
+    "major": "PROG. ESP. DE INTERCAMBIO INT.",
     "faculty": "Fac. Administración y Negocios",
-    "name": "PROG. ESP. DE INTERCAMBIO INT."
+    "subjects": [
+      "Relaciones Internacionales",
+      "Idiomas Extranjeros",
+      "Cultura Internacional",
+      "Negocios Internacionales",
+      "Protocolo y Ceremonial",
+      "Gestión Cultural",
+      "Proyecto de Intercambio",
+      "Seminario Internacional"
+    ]
   },
   {
+    "major": "PSICOLOGÍA",
     "faculty": "Fac. Cs Sociales y Humanidades",
-    "name": "PSICOLOGÍA"
+    "subjects": [
+      "Psicología General",
+      "Neuropsicología",
+      "Psicología Clínica",
+      "Psicología Social",
+      "Evaluación Psicológica",
+      "Terapias Psicológicas",
+      "Práctica Profesional",
+      "Ética en Psicología"
+    ]
   },
   {
+    "major": "QUÍMICA Y FARMACIA",
     "faculty": "Fac. Cs de la Salud",
-    "name": "QUÍMICA Y FARMACIA"
+    "subjects": [
+      "Química Orgánica",
+      "Farmacología",
+      "Química Analítica",
+      "Tecnología Farmacéutica",
+      "Toxicología",
+      "Farmacia Clínica",
+      "Control de Calidad",
+      "Internado Farmacéutico"
+    ]
   },
   {
+    "major": "RELACIONES PÚBLICAS",
     "faculty": "Fac. Cs Sociales y Humanidades",
-    "name": "RELACIONES PÚBLICAS"
+    "subjects": [
+      "Teoría de la Comunicación",
+      "Gestión de Imagen",
+      "Protocolo y Ceremonial",
+      "Marketing y Publicidad",
+      "Comunicación Corporativa",
+      "Relaciones con Medios",
+      "Práctica Profesional",
+      "Proyecto de Comunicación"
+    ]
   },
   {
+    "major": "TERAPIA OCUPACIONAL",
     "faculty": "Fac. Cs de la Salud",
-    "name": "TERAPIA OCUPACIONAL"
+    "subjects": [
+      "Fundamentos de Terapia Ocupacional",
+      "Evaluación Ocupacional",
+      "Técnicas de Intervención",
+      "Terapia Ocupacional Pediátrica",
+      "Rehabilitación Psicosocial",
+      "Adaptaciones y Ayudas Técnicas",
+      "Práctica Clínica",
+      "Investigación en TO"
+    ]
   },
   {
+    "major": "TRABAJO SOCIAL",
     "faculty": "Fac. Cs Sociales y Humanidades",
-    "name": "TRABAJO SOCIAL"
+    "subjects": [
+      "Teoría del Trabajo Social",
+      "Intervención Social",
+      "Políticas Sociales",
+      "Metodología de la Investigación Social",
+      "Trabajo Social Comunitario",
+      "Familia y Sociedad",
+      "Práctica Profesional",
+      "Proyecto Social"
+    ]
   }
 ]
+
