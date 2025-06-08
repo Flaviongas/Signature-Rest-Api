@@ -41,7 +41,8 @@ class Student(models.Model):
 
 class Subject(models.Model):
     name = models.CharField(max_length=200)
-    major = models.ManyToManyField(Major, related_name='subjects')
+    major = models.ForeignKey(
+        Major, on_delete=models.CASCADE, related_name='subjects', null=True)
     students = models.ManyToManyField(Student, related_name='subjects')
 
     def __str__(self):
