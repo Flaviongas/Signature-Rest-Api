@@ -35,7 +35,6 @@ class RequestLoggingMiddleware(MiddlewareMixin):
             'path': request.path,
             'status_code': response.status_code,
             'duration': f"{duration:.2f}s",
-            'client_ip': self.get_client_ip(request),
             'query_params': self.sanitize_data(dict(request.GET)),
             'request_body': self.sanitize_data(self.parse_body(request)),
         }
@@ -61,14 +60,6 @@ class RequestLoggingMiddleware(MiddlewareMixin):
         logger.debug(f"Request details: {request_data}")
         
         return response
-    
-    def get_client_ip(self, request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
     
     def parse_body(self, request):
         """Try to parse the request body based on content type"""
