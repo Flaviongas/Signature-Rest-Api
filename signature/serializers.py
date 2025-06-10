@@ -348,13 +348,15 @@ class UpdateStudentSerializer(serializers.Serializer):
         return self.update(instance, self.validated_data)  
 
 class SubjectEnrollmentSerializer(serializers.Serializer):
-    student_id = serializers.IntegerField()
-    subject_id = serializers.IntegerField()
+    student_ids = serializers.ListField(
+        child=serializers.IntegerField()
+    )
 
+    subject_id = serializers.IntegerField()
 
     def validate(self, data):
         try:
-            student = Student.objects.get(id=data['student_id'])
+            student = Student.objects.get(id=data['student_ids'][0])
         except Student.DoesNotExist:
             raise serializers.ValidationError("Estudiante no encontrado")
 
@@ -363,7 +365,8 @@ class SubjectEnrollmentSerializer(serializers.Serializer):
         except Subject.DoesNotExist:
             raise serializers.ValidationError("Materia no encontrada")
 
-        if not subject.major.filter(id=student.major.id).exists():
+        # Cambio principal: ahora subject.major es un ForeignKey, no un ManyToMany
+        if subject.major.id != student.major.id:
             raise serializers.ValidationError("La materia no pertenece a la carrera del estudiante")
 
         self.student = student
@@ -390,8 +393,8 @@ class UnenrollSubjectSerializer(serializers.Serializer):
                 try:
                     student = Student.objects.get(id=student_id)
                     
-                    # Check if subject belongs to student's major
-                    if not subject.major.filter(id=student.major.id).exists():
+                    # Cambio principal: ahora subject.major es un ForeignKey, no un ManyToMany
+                    if subject.major.id != student.major.id:
                         raise serializers.ValidationError(f"La materia no pertenece a la carrera del estudiante con ID {student_id}")
                     
                     students.append(student)
