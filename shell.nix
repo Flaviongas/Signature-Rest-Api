@@ -11,5 +11,9 @@ shellHook = ''
     uv run manage.py runserver
   '';
 
-  LD_LIBRARY_PATH="${pkgs.libGL}/lib/:${pkgs.stdenv.cc.cc.lib}/lib/:${pkgs.glib.out}/lib/";
+
+env.LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+	pkgs.stdenv.cc.cc.lib
+		pkgs.libz
+];
 }

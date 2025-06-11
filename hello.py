@@ -1,5 +1,5 @@
 def main():
-    print("Hello from signature-backend!")
+    print("Hello from signature-rest-api!")
 
 
 if __name__ == "__main__":
