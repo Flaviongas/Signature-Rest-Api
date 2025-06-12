@@ -11,6 +11,35 @@ on:
       - main
 
 jobs:
+  deploy:
+    environment: signature
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Tailscale
+      uses: tailscale/github-action@v3
+      with:
+        oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+        oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+        tags: tag:fisica
+
+    - name: SSH Gidua
+      uses: appleboy/ssh-action@v1.2.2
+      with:
+        host: gidua
+        username: server
+        key: ${{ secrets.SSH_KEY }}
+        password: ${{ secrets.PASSWORD_GIDUA }}
+        port: 22
+        script: |
+          cd /var/www/example.org/Signature-Rest-Api 
+          git reset --hard
+          sleep 5 && git pull
+          export LD_LIBRARY_PATH=$(nix-instantiate --eval -E '(import <nixpkgs> {}).stdenv.cc.cc.lib.outPath' | tr -d '"')/lib
+          uv run manage.py makemigrations
+          uv run manage.py migrate
+          echo '${{ secrets.PASSWORD_GIDUA }}' | sudo -S systemctl restart signature
   test:
     timeout-minutes: 2
     name: Run Tests

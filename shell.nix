@@ -1,19 +1,22 @@
 { pkgs ? import <nixpkgs> {} }:
 # For nix-shell
 
+let
+  libraryPath = with pkgs;
+    lib.makeLibraryPath [
+      # add other library packages here if needed
+      stdenv.cc.cc
+    ];
+in
 pkgs.mkShell {
   packages = [
     (pkgs.python312.withPackages (ps: with ps; [
       pandas
+      numpy
       ]))
   ];
 shellHook = ''
-    uv run manage.py runserver
+ export "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${libraryPath}"
   '';
 
-
-env.LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-	pkgs.stdenv.cc.cc.lib
-		pkgs.libz
-];
 }
