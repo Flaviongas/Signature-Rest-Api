@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
             majors = json.load(file)
             for major in majors:
                 Major.objects.create(
-                    name=major['name'],
+                    name=major['major'],
                     faculty=major['faculty'],
                 )
 
