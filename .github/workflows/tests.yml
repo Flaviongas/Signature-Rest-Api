@@ -41,7 +41,7 @@ jobs:
           uv run manage.py migrate
           echo '${{ secrets.PASSWORD_GIDUA }}' | sudo -S systemctl restart signature
     - name: Logout of Tailscale
-      run: tailscale logout
+      run: echo '${{ secrets.PASSWORD_GIDUA }}' | sudo -S tailscale logout
 
   test:
     timeout-minutes: 2
