@@ -40,6 +40,9 @@ jobs:
           uv run manage.py makemigrations
           uv run manage.py migrate
           echo '${{ secrets.PASSWORD_GIDUA }}' | sudo -S systemctl restart signature
+    - name: Logout of Tailscale
+      run: tailscale logout
+
   test:
     timeout-minutes: 2
     name: Run Tests
