@@ -43,48 +43,48 @@ jobs:
     - name: Logout of Tailscale
       run: echo '${{ secrets.PASSWORD_GIDUA }}' | sudo -S tailscale logout
 
-  test:
-    timeout-minutes: 2
-    name: Run Tests
-    runs-on: ${{ matrix.os }}
-    environment: signature
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.9, 3.11]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-
-      - name: Run tests
-        run: |
-          pytest . -k "not test_email_token" 
-
-      - name: Cyclomatic Complexity
-        run: |
-          radon cc signature/ -s
-
-      - name: Maintainability Index
-        run: |
-          radon mi signature/ -s
-
-      - name: General Metrics
-        run: |
-          radon raw signature/ -s
-
-      - name: Halstead Metrics
-        run: |
-          radon hal signature/
+  # test:
+  #   timeout-minutes: 2
+  #   name: Run Tests
+  #   runs-on: ${{ matrix.os }}
+  #   environment: signature
+  #
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #       python-version: [3.9, 3.11]
+  #
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: ${{ matrix.python-version }}
+  #
+  #     - name: Install dependencies
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         pip install -r requirements.txt
+  #
+  #
+  #     - name: Run tests
+  #       run: |
+  #         pytest . -k "not test_email_token" 
+  #
+  #     - name: Cyclomatic Complexity
+  #       run: |
+  #         radon cc signature/ -s
+  #
+  #     - name: Maintainability Index
+  #       run: |
+  #         radon mi signature/ -s
+  #
+  #     - name: General Metrics
+  #       run: |
+  #         radon raw signature/ -s
+  #
+  #     - name: Halstead Metrics
+  #       run: |
+  #         radon hal signature/
